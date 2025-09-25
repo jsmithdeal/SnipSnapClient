@@ -1,0 +1,5 @@
+.gradient-border {
+    border-image: linear-gradient(to right, var(--color-amber-600) 0%, var(--color-indigo-800) 100%) 1;
+    border-width: 10px;
+    border-style: solid;
+}
