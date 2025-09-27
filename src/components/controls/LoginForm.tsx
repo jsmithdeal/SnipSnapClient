@@ -6,7 +6,7 @@ export default function LoginForm(){
     const [passwordText, setPasswordText] = useState("");
 
     function submitLogin(){
-
+        
     }
 
     return (
@@ -16,10 +16,10 @@ export default function LoginForm(){
             <form onSubmit={submitLogin} method='POST' className='w-full'>
                 <Input onChange={
                     (e) => setEmailText(e.target.value)
-                } idAndName='emailText' type='text' classes='w-full bg-white' placeholder='Email'/>
+                } idAndName='emailText' type='email' classes='w-full bg-white' placeholder='Email' required/>
                 <Input onChange={
                     (e) => setPasswordText(e.target.value)
-                } idAndName='passwordText' type='password' classes='w-full mt-3 bg-white' placeholder='Password'/>
+                } idAndName='passwordText' type='password' classes='w-full mt-3 bg-white' placeholder='Password' required/>
                 <Input type='submit' classes='mt-3 bg-indigo-800 hover:bg-indigo-600 text-white cursor-pointer' />
             </form>
 
