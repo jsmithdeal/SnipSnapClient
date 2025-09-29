@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import  APIService  from "../../services/api-service"
 import Input from "./Input";
 import type CreateUser from "../../models/CreateUser";
+import { createToast } from "../../utilities/utilityFunctions";
+import { Bounce, toast } from "react-toastify";
 
 export default function CreateAccount(){
     const [firstName, setFName] = useState("");
@@ -12,18 +14,17 @@ export default function CreateAccount(){
     const [verifyPassword, setVerifyPassword] = useState("");
     const navigate = useNavigate();
 
-    function submitSignUp(e: React.FormEvent<HTMLFormElement>) {
+    //Validate password and submit user for creation
+    async function submitSignUp(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        //TODO: HANDLE VALIDATION ERRORS
         if (password != verifyPassword){
-            
+            createToast(false, "Passwords don't match");
         }
         else if (!meetsPwdReqs()){
-
+            createToast(false, "Password must meet the following requirements: minimum 8 characters, 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character");
         }
         else {
-            //TODO: HANDLE ERRORS ON SUBMISSION TO API
             const user: CreateUser = {
                 email: email,
                 password: password,
@@ -31,15 +32,28 @@ export default function CreateAccount(){
                 lastname: lastName
             }
 
-            APIService.createUser(user);
+            const response = await APIService.createUser(user);
+            
+            if (response.statusCode == 200){
+                toast.success("User created. Redirecting to login...", {
+                    autoClose: 5000,
+                    theme: "dark",
+                    onClose: () => navigate('/'),
+                    transition: Bounce,
+                });
+            }
+            else 
+                createToast(false, response.message);
         }
     }
 
+    //Validate password requirements with regex
     function meetsPwdReqs(): boolean {
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
         return passwordRegex.test(password);
     }
 
+    //Cancel button click...
     function cancelClick() {
         navigate('/');
     }

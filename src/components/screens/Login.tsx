@@ -1,5 +1,5 @@
 import './Login.css'
-import { APP_NAME } from '../../configVariables'
+import { APP_NAME } from '../../utilities/configVariables'
 import { Outlet } from 'react-router-dom'
 
 
