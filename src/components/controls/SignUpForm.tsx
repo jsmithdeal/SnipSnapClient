@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import  APIService  from "../../services/api-service"
 import Input from "./Input";
-import type CreateUser from "../../models/CreateUser";
+import type { CreateUser } from "../../models/UserModels";
 import { createToast } from "../../utilities/utilityFunctions";
 import { Bounce, toast } from "react-toastify";
 
