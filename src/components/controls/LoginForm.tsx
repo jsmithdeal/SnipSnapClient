@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Input from '../controls/Input'
 import APIService from '../../services/api-service';
 import { createToast } from '../../utilities/utilityFunctions';
-import type { LoginUser } from '../../models/UserModels';
+import type { LoginRequest } from '../../models/http/RequestModels';
 
 export default function LoginForm(){
     const [emailText, setEmailText] = useState("");
@@ -11,7 +11,7 @@ export default function LoginForm(){
     async function submitLogin(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
 
-        const login: LoginUser = {
+        const login: LoginRequest = {
             email: emailText,
             password: passwordText
         }

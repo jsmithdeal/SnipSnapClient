@@ -1,11 +1,11 @@
 import axios, { isAxiosError } from "axios";
 import { API_URL, API_ENDPOINTS } from "../utilities/configVariables";
-import type { CreateUser, LoginUser } from "../models/UserModels";
+import type { CreateUserRequest, LoginRequest } from "../models/http/RequestModels";
 import type APIResponse from "../models/APIResponse";
 
 export default class APIService {
     //Creates new user
-    static async createUser(user: CreateUser): Promise<APIResponse> {
+    static async createUser(user: CreateUserRequest): Promise<APIResponse> {
         const url = API_URL + API_ENDPOINTS.createUser;
         
         try {
@@ -33,7 +33,7 @@ export default class APIService {
         }
     }
 
-    static async login(login: LoginUser): Promise<APIResponse> {
+    static async login(login: LoginRequest): Promise<APIResponse> {
         const url = API_URL + API_ENDPOINTS.login;
         
         try {

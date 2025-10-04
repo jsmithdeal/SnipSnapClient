@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import  APIService  from "../../services/api-service"
 import Input from "./Input";
-import type { CreateUser } from "../../models/UserModels";
+import type { CreateUserRequest } from "../../models/http/RequestModels";
 import { createToast } from "../../utilities/utilityFunctions";
 import { Bounce, toast } from "react-toastify";
 
@@ -25,7 +25,7 @@ export default function CreateAccount(){
             createToast(false, "Password must meet the following requirements: minimum 8 characters, 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character");
         }
         else {
-            const user: CreateUser = {
+            const user: CreateUserRequest = {
                 email: email,
                 password: password,
                 firstname: firstName,
