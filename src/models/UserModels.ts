@@ -1,15 +1,20 @@
-export interface CreateUser {
+interface UserBase {
     email: string;
-    password: string;
     firstname: string;
     lastname: string;
 }
 
-export interface GetUser {
-    userid: number
-    email: string;
-    firstname: string;
-    lastname: string;
+export interface CreateUser extends UserBase  {
+    password: string;
+}
+
+export interface GetUser extends UserBase {
+    userid: number;
+}
+
+export interface GetAuthUser {
+    token: string;
+    user: GetUser
 }
 
 export interface LoginUser {
