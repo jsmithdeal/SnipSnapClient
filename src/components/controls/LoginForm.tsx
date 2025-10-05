@@ -20,6 +20,7 @@ export default function LoginForm(){
 
         if (response.success){
             //todo: implement login
+            createToast(true, "made it")
         }
         else 
             createToast(false, response.message);

@@ -37,7 +37,9 @@ export default class APIService {
         const url = API_URL + API_ENDPOINTS.login;
         
         try {
-            const response = await axios.post(url, login);
+            const response = await axios.post(url, login, {
+                "withCredentials": true
+            });
             return {
                 success: true,
                 statusCode: response.status,
