@@ -6,6 +6,5 @@ export interface UserResponse extends UserBase {
 
 export interface AuthenticatedResponse {
     csfrToken: string;
-    token: string;
     user: UserResponse;
 }
