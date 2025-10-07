@@ -1,7 +1,7 @@
 import axios, { isAxiosError } from "axios";
 import { API_URL, API_ENDPOINTS } from "../utilities/configVariables";
 import type { CreateUserRequest, LoginRequest } from "../models/http/RequestModels";
-import type APIResponse from "../models/APIResponse";
+import type APIResponse from "../models/http/APIResponse";
 
 export default class APIService {
     //Creates new user
