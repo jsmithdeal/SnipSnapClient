@@ -1,4 +1,4 @@
-import type { UserBase } from './BaseHTTPModels';
+import type { UserBase } from './BaseModels';
 
 export interface CreateUserRequest extends UserBase  {
     password: string;

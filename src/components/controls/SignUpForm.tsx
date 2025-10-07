@@ -6,6 +6,7 @@ import type { CreateUserRequest } from "../../models/http/RequestModels";
 import { createToast } from "../../utilities/utilityFunctions";
 import { Bounce, toast } from "react-toastify";
 
+//The create account form component
 export default function CreateAccount(){
     const [firstName, setFName] = useState("");
     const [lastName, setLName] = useState("");
@@ -25,6 +26,7 @@ export default function CreateAccount(){
             createToast(false, "Password must meet the following requirements: minimum 8 characters, 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character");
         }
         else {
+            //Build create user request from state
             const user: CreateUserRequest = {
                 email: email,
                 password: password,
@@ -32,9 +34,10 @@ export default function CreateAccount(){
                 lastname: lastName
             }
 
-            const response = await APIService.createUser(user);
+            const createResponse = await APIService.createUser(user);
             
-            if (response.statusCode == 200){
+            if (createResponse.statusCode == 200){
+                //Call toast directly here for callback
                 toast.success("User created. Redirecting to login...", {
                     autoClose: 5000,
                     theme: "dark",
@@ -43,7 +46,7 @@ export default function CreateAccount(){
                 });
             }
             else 
-                createToast(false, response.message);
+                createToast(false, createResponse.message);
         }
     }
 
@@ -55,7 +58,7 @@ export default function CreateAccount(){
 
     //Cancel button click...
     function cancelClick() {
-        navigate('/');
+        navigate('/login');
     }
 
     return (
@@ -65,27 +68,27 @@ export default function CreateAccount(){
             <form onSubmit={submitSignUp} method='POST' className='w-full'>
                 <Input onChange={
                     (e) => setFName(e.target.value)
-                } idAndName='fNameText' type='text' classes='w-full bg-white' placeholder='First Name' required/>
+                } idAndName='fNameText' type='text' className='w-full bg-white' placeholder='First Name' required/>
                 
                 <Input onChange={
                     (e) => setLName(e.target.value)
-                } idAndName='lNameText' type='text' classes='w-full mt-3 bg-white' placeholder='Last Name' required/>
+                } idAndName='lNameText' type='text' className='w-full mt-3 bg-white' placeholder='Last Name' required/>
 
                 <Input onChange={
                     (e) => setEmail(e.target.value)
-                } idAndName='emailText' type='email' classes='w-full mt-3 bg-white' placeholder='Email' required/>
+                } idAndName='emailText' type='email' className='w-full mt-3 bg-white' placeholder='Email' required/>
 
                 <Input onChange={
                     (e) => setPassword(e.target.value)
-                } idAndName='passwordText' type='password' classes='w-full mt-3 bg-white' placeholder='Password' required/>
+                } idAndName='passwordText' type='password' className='w-full mt-3 bg-white' placeholder='Password' required/>
 
                 <Input onChange={
                     (e) => setVerifyPassword(e.target.value)
-                } idAndName='verifyPasswordText' type='password' classes='w-full mt-3 bg-white' placeholder='Verify Password' required/>
+                } idAndName='verifyPasswordText' type='password' className='w-full mt-3 bg-white' placeholder='Verify Password' required/>
 
                 <div>
-                    <Input type='submit' classes='mt-3 mr-3 bg-indigo-800 hover:bg-indigo-600 text-white cursor-pointer' />
-                    <Input type="button" onClick={cancelClick} value="Cancel" classes='mt-3 bg-indigo-800 hover:bg-indigo-600 text-white cursor-pointer' />
+                    <Input type='submit' className='mt-3 mr-3 bg-indigo-800 hover:bg-indigo-600 text-white cursor-pointer rounded-md' />
+                    <Input type="button" onClick={cancelClick} value="Cancel" className='mt-3 bg-indigo-800 hover:bg-indigo-600 text-white cursor-pointer rounded-md' />
                 </div>
             </form>
         </>

@@ -1,10 +1,5 @@
-import type { UserBase } from './BaseHTTPModels';
+import type { UserBase } from './BaseModels';
 
 export interface UserResponse extends UserBase {
     userid: number;
-}
-
-export interface AuthenticatedResponse {
-    csfrToken: string;
-    user: UserResponse;
 }
