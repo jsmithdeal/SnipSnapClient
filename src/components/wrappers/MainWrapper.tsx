@@ -57,7 +57,7 @@ export default function MainWrapper(){
             <div className="text-white hidden lg:flex lg:justify-center">
                 <div className="container relative">
                     <div className={`w-full absolute bg-indigo-600 overflow-hidden transition-[max-height] duration-500 ${desktopMenu ? "max-h-100" : "max-h-0"}`}>
-                        <DesktopMenu className="p-5" />
+                        <DesktopMenu className="p-5" onClick={() => setDesktopMenu(false)}/>
                     </div>
                 </div>
             </div>
