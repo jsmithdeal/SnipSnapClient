@@ -5,12 +5,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import LoginForm from './components/controls/LoginForm'
 import { Bounce, ToastContainer } from 'react-toastify'
 import MainWrapper from './components/wrappers/MainWrapper'
-import UserContextProvider from './contexts/UserContext'
+import SnipSnapContextProvider from './contexts/SnipSnapContext'
 import ProtectedRoute from './components/route-protection/ProtectedRoute'
+import { PAGE_ROUTES } from './utilities/configVariables'
 
 function App() {
   return (
-    <UserContextProvider>
+    <SnipSnapContextProvider>
       <BrowserRouter>
         <ToastContainer
           position="bottom-center"
@@ -26,13 +27,12 @@ function App() {
           transition={Bounce}
         />
         <Routes>
-          <Route path='/' element={ <LoginWrapper /> }>
-            <Route path='/' element={ <LoginForm /> }/>
-            <Route path='/login' element={ <LoginForm /> }/>
-            <Route path='/sign-up' element={ <CreateAccount /> } />
+          <Route path={ PAGE_ROUTES.accesspages.root } element={ <LoginWrapper /> }>
+            <Route path={ PAGE_ROUTES.accesspages.login } element={ <LoginForm /> }/>
+            <Route path={ PAGE_ROUTES.accesspages.createaccount } element={ <CreateAccount /> } />
           </Route>
           <Route
-            path="/snipsnap" 
+            path="*" 
             element={
               <ProtectedRoute>
                 <MainWrapper />
@@ -41,7 +41,7 @@ function App() {
           />
         </Routes>
       </BrowserRouter>
-    </UserContextProvider>
+    </SnipSnapContextProvider>
   )
 }
 

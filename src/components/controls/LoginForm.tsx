@@ -3,16 +3,16 @@ import Input from '../controls/Input'
 import APIService from '../../services/api-service';
 import { createToast } from '../../utilities/utilityFunctions';
 import type { LoginRequest } from '../../models/http/RequestModels';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContext';
-import type { UserResponse } from '../../models/http/ResponseModels';
+import { Link, useNavigate } from 'react-router-dom';
+import { SnipSnapContext } from '../../contexts/SnipSnapContext';
+import { PAGE_ROUTES } from '../../utilities/configVariables';
 
 //The login form component
 export default function LoginForm(){
     const [emailText, setEmailText] = useState("");
     const [passwordText, setPasswordText] = useState("");
     const navigate = useNavigate();
-    const userContext = useContext(UserContext);
+    const snipsnapContext = useContext(SnipSnapContext);
 
     //Submit form login
     async function submitLogin(e: React.FormEvent<HTMLFormElement>){
@@ -25,18 +25,14 @@ export default function LoginForm(){
         }
 
         //Call login api which will store jwt and csfr tokens in cookies (React state not persistent)
-        const userResponse = await APIService.login(login);
-        const csfrToken = await cookieStore.get("snipsnap-csfr");
+        const loginResponse = await APIService.login(login);
 
-        if (userResponse.success && csfrToken?.value != null && csfrToken?.value != ""){
-            let user = (userResponse.data as UserResponse);
-
-            userContext?.setUser(user);
-            userContext?.setAuthenticated(true);
-            navigate("/snipsnap", {replace: true});
+        if (loginResponse.success){
+            snipsnapContext?.setAuthenticated(true);
+            navigate("/userpages/snips", {replace: true});
         }
         else 
-            createToast(false, userResponse.message);
+            createToast(false, loginResponse.message);
     }
 
     return (
@@ -53,7 +49,7 @@ export default function LoginForm(){
                 <Input type='submit' className='mt-3 bg-indigo-800 hover:bg-indigo-600 text-white cursor-pointer rounded-md' />
             </form>
 
-            <h2 className='text-white pt-5 md:pt-10'>No account? <a href='/sign-up' className='cursor-pointer text-indigo-800 hover:text-indigo-600'>Sign up here.</a></h2>
+            <h2 className='text-white pt-5 md:pt-10'>No account? <Link to={PAGE_ROUTES.accesspages.createaccount} replace={true} className='cursor-pointer text-indigo-800 hover:text-indigo-600'>Sign up here.</Link></h2>
         </>
     )
 }

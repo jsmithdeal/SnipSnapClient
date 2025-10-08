@@ -1,16 +1,30 @@
-import { useContext, type JSX } from "react";
-import { UserContext } from "../../contexts/UserContext";
-import { Navigate } from "react-router-dom";
+import { useContext, useEffect, type JSX } from "react";
+import { SnipSnapContext } from "../../contexts/SnipSnapContext";
+import { useNavigate } from "react-router-dom";
+import APIService from "../../services/api-service";
+import { PAGE_ROUTES } from "../../utilities/configVariables";
 
 //Component that wraps components that require login to access. Ensures users
 //is authenticated and sends them to login if not
 export default function ProtectedRoute({ children }: { children: JSX.Element }){
-    const context = useContext(UserContext);
+    const context = useContext(SnipSnapContext);
+    const navigate = useNavigate();
 
-    if (context == null || !context.authenticated){
-        return <Navigate to="/login" replace />
-    }
-    //todo: check for csfr in cookies whether expired. If found and valid, re-get context info (persist across refreshes)
-    
+    //Async calls must be in useEffect within components
+     useEffect(() => {
+        const checkAuth = async () => {
+            if (!context.authenticated){
+                const authResponse = await APIService.checkAuth();
+
+                if (!authResponse.success)
+                    navigate(PAGE_ROUTES.accesspages.login, { replace: true })
+                else
+                    context.setAuthenticated(true);
+            }
+        };
+
+        checkAuth();
+    }, [])
+
     return children;
 }

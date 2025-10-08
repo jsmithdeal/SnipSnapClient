@@ -5,6 +5,7 @@ import Input from "./Input";
 import type { CreateUserRequest } from "../../models/http/RequestModels";
 import { createToast } from "../../utilities/utilityFunctions";
 import { Bounce, toast } from "react-toastify";
+import { PAGE_ROUTES } from "../../utilities/configVariables";
 
 //The create account form component
 export default function CreateAccount(){
@@ -41,7 +42,7 @@ export default function CreateAccount(){
                 toast.success("User created. Redirecting to login...", {
                     autoClose: 5000,
                     theme: "dark",
-                    onClose: () => navigate('/'),
+                    onClose: () => navigate(PAGE_ROUTES.accesspages.login, {replace: true}),
                     transition: Bounce,
                 });
             }
@@ -58,7 +59,7 @@ export default function CreateAccount(){
 
     //Cancel button click...
     function cancelClick() {
-        navigate('/login');
+        navigate(PAGE_ROUTES.accesspages.login, {replace: true});
     }
 
     return (

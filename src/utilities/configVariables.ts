@@ -2,5 +2,17 @@ export const APP_NAME = "SnipSnap";
 export const API_URL = "http://localhost:8000"
 export const API_ENDPOINTS = {
     createUser: "/create-user",
-    login: "/login"
+    login: "/login",
+    checkAuth: "/checkAuth"
+}
+export const PAGE_ROUTES = {
+    accesspages: {
+        root: "/accesspages",
+        login: "/accesspages/login",
+        createaccount: "/accesspages/createaccount"
+    },
+    userpages: {
+        root: "/userpages",
+        snips: "/userpages/snips"
+    }
 }
