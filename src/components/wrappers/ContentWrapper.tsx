@@ -1,3 +1,5 @@
+import { Outlet } from "react-router-dom"
+
 type ContentProps = {
     className?: string
 }
@@ -6,7 +8,7 @@ type ContentProps = {
 export default function ContentWrapper(props: ContentProps){
     return (
         <div className={props.className}>
-            Content
+            <Outlet />
         </div>
     )
 }
