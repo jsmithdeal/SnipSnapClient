@@ -30,8 +30,8 @@ export default function MainWrapper(){
     }
 
     return (
-        <div className="grid w-screen h-screen grid-rows-[auto_1fr] lg:grid-rows-[auto_auto_auto_1fr]">
-            <div className="bg-zinc-900 p-5 lg:flex lg:justify-center">
+        <div className="grid w-screen h-screen grid-rows-[auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr]">
+            <div className="bg-zinc-900 p-5 lg:flex lg:justify-center sticky top-0 left-0">
                 <div className="lg:container">
                     {
                         mobileMenu && (
@@ -54,17 +54,24 @@ export default function MainWrapper(){
                 </div>
             </div>
 
-            <div className="hidden lg:flex lg:justify-center">
+            <div className="hidden lg:flex lg:justify-center z-50">
                 <div className="container relative">
                     <div className={`w-full absolute bg-indigo-600 overflow-hidden transform transition-transform duration-300 origin-top ${desktopMenu ? "scale-y-100" : "scale-y-0"}`}>
                         <DesktopMenu className="p-3 flex justify-center" onClick={() => setDesktopMenu(false)}/>
                     </div>
                 </div>
             </div>
-            
+
+            <div className="lg:hidden z-50">
+                <div className="relative">
+                    <div className={`w-screen h-[calc(100dvh-4.75rem)] bg-zinc-900 absolute transform transition-transform duration-300 origin-top ${mobileMenu ? "scale-y-100" : "scale-y-0"}`}>
+                        <MobileMenu className="overflow-hidden flex flex-col items-center"/>
+                    </div>
+                </div>
+            </div>
+
             <div className="bg-zinc-800 lg:flex lg:justify-center">
-                <div className={`grid h-full lg:container w-full transition-[grid-template-rows] duration-500 ${mobileMenu ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                    <MobileMenu className="bg-zinc-900 overflow-hidden flex flex-col items-center"/>
+                <div className="lg:container">
                     <ContentWrapper className={`p-5 overflow-y-scroll scrollbar-hide ${mobileMenu && "hidden"}`} />
                 </div>
             </div>
