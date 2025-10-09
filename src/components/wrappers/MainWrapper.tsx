@@ -50,22 +50,22 @@ export default function MainWrapper(){
 
             <div className="bg-indigo-800 text-white hidden lg:flex lg:justify-center p-0">
                 <div className="container flex justify-center">
-                    <MdOutlineExpandMore className={`text-4xl cursor-pointer ${desktopMenu ? "transform rotate-180" : ""}`} onClick={() => {desktopMenu ? setDesktopMenu(false) : setDesktopMenu(true)}} />
+                    <MdOutlineExpandMore className={`text-4xl cursor-pointer ${desktopMenu && "transform rotate-180"}`} onClick={() => {desktopMenu ? setDesktopMenu(false) : setDesktopMenu(true)}} />
                 </div>
             </div>
 
-            <div className="text-white hidden lg:flex lg:justify-center">
+            <div className="hidden lg:flex lg:justify-center">
                 <div className="container relative">
-                    <div className={`w-full absolute bg-indigo-600 overflow-hidden transition-[max-height] duration-500 ${desktopMenu ? "max-h-100" : "max-h-0"}`}>
-                        <DesktopMenu className="p-5" onClick={() => setDesktopMenu(false)}/>
+                    <div className={`w-full absolute bg-indigo-600 overflow-hidden transform transition-transform duration-300 origin-top ${desktopMenu ? "scale-y-100" : "scale-y-0"}`}>
+                        <DesktopMenu className="p-3 flex justify-center" onClick={() => setDesktopMenu(false)}/>
                     </div>
                 </div>
             </div>
             
             <div className="bg-zinc-800 lg:flex lg:justify-center">
-                <div className={`grid h-full w-full lg:container transition-[grid-template-rows] duration-500 ${mobileMenu ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                    <MobileMenu className="bg-zinc-900 overflow-hidden flex flex-col items-center lg:hidden"/>
-                    <ContentWrapper className={`p-5 overflow-y-scroll scrollbar-hide ${mobileMenu ? "hidden" : ""}`} />
+                <div className={`grid h-full lg:container w-full transition-[grid-template-rows] duration-500 ${mobileMenu ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                    <MobileMenu className="bg-zinc-900 overflow-hidden flex flex-col items-center"/>
+                    <ContentWrapper className={`p-5 overflow-y-scroll scrollbar-hide ${mobileMenu && "hidden"}`} />
                 </div>
             </div>
         </div>
