@@ -49,7 +49,7 @@ export default function LoginForm(){
                 <Input type='submit' className='mt-3 bg-indigo-800 hover:bg-indigo-600 text-white cursor-pointer rounded-md' />
             </form>
 
-            <h2 className='text-white pt-5 md:pt-10'>No account? <Link to={PAGE_ROUTES.accesspages.createaccount} replace={true} className='cursor-pointer text-indigo-800 hover:text-indigo-600'>Sign up here.</Link></h2>
+            <h2 className='text-white pt-5 md:pt-10'>No account? <Link to={PAGE_ROUTES.accesspages.createaccount} replace={true} className='cursor-pointer text-amber-600 hover:text-indigo-600'>Sign up here.</Link></h2>
         </>
     )
 }

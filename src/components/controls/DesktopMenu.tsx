@@ -11,7 +11,7 @@ export default function DesktopMenu(props: MenuProps){
     return (
         <div className={props.className} onClick={props.onClick}>
             <MenuItem icon={RiScissorsCutLine} iconWrapperClassName="inline-flex items-center pe-1" linkTo="/userpages/snips" linkText="Snips" 
-                linkWrapperClassName="inline-flex" outterWrapperClassName="text-white flex items-center text-xl duration-300 hover:-translate-y-1 hover:scale-110" />
+                linkWrapperClassName="inline-flex" outterWrapperClassName="text-indigo-800 brand-font flex items-center text-xl duration-300 hover:-translate-y-1 hover:scale-105" />
         </div>
     )
 }

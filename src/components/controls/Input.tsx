@@ -12,6 +12,6 @@ type InputProps = {
 //Input control component
 export default function Input(props: InputProps){
     return (
-        <input id={props.idAndName} onChange={props.onChange} onClick={props.onClick} name={props.idAndName} type={props.type} value={props.value} className={`px-3 py-2 ${props?.className}`} placeholder={props.placeholder} required={props.required}/>
+        <input id={props.idAndName} onChange={props.onChange} onClick={props.onClick} name={props.idAndName} type={props.type} value={props.value} className={`px-3 py-2 rounded-md ${props?.className}`} placeholder={props.placeholder} required={props.required}/>
     )
 }
