@@ -13,17 +13,16 @@ export default function ProtectedRoute({ children }: { children: JSX.Element }){
     //Async calls must be in useEffect within components
      useEffect(() => {
         const checkAuth = async () => {
-            if (!context.authenticated){
-                const authResponse = await APIService.checkAuth();
+            const authResponse = await APIService.checkAuth();
 
-                if (!authResponse.success)
-                    navigate(PAGE_ROUTES.accesspages.login, { replace: true })
-                else
-                    context.setAuthenticated(true);
-            }
+            if (!authResponse.success)
+                navigate(PAGE_ROUTES.accesspages.login, { replace: true })
+            else
+                context.setAuthenticated(true);
         };
 
-        checkAuth();
+        if (!context.authenticated)
+            checkAuth();
     }, [])
 
     return children;

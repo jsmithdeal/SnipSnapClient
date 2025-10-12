@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { MdOutlineExpandMore } from "react-icons/md";
 import DesktopMenu from "../controls/DesktopMenu";
 import MobileMenu from "../controls/MobileMenu";
+import Logout from "../controls/Logout";
 
 //Main wrapper for components inside of snipsnap. This houses the top bar, desktop side menu, 
 //mobile slide down menu, and main content window
@@ -32,19 +33,24 @@ export default function MainWrapper(){
     return (
         <div className="grid w-screen h-screen grid-rows-[auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr]">
             <div className="bg-zinc-900 p-5 lg:flex lg:justify-center sticky top-0 left-0">
-                <div className="lg:container">
-                    {
-                        mobileMenu && (
-                            <MdOutlineClose className="text-4xl block lg:hidden text-amber-600" onClick={() => setMobileMenu(false)} />
-                        )
-                    }
-                    
-                    {
-                        !mobileMenu && (
-                            <RiMenu4Fill className="text-4xl block lg:hidden text-amber-600" onClick={() => setMobileMenu(true)} />
-                        )
-                    }
-                    <h1 className='brand-font hidden lg:block lg:text-5xl xl:text-6xl text-amber-600'>{APP_NAME}</h1>
+                <div className="lg:container flex">
+                    <div>
+                        {
+                            mobileMenu && (
+                                <MdOutlineClose className="text-4xl block lg:hidden text-amber-600" onClick={() => setMobileMenu(false)} />
+                            )
+                        }
+                        
+                        {
+                            !mobileMenu && (
+                                <RiMenu4Fill className="text-4xl block lg:hidden text-amber-600" onClick={() => setMobileMenu(true)} />
+                            )
+                        }
+                        <h1 className='brand-font hidden lg:block lg:text-5xl xl:text-6xl text-amber-600'>{APP_NAME}</h1>
+                    </div>
+                    <div className="w-full flex justify-end items-end text-amber-600">
+                        <Logout />
+                    </div>
                 </div>
             </div>
 

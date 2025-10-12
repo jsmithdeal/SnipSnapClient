@@ -3,7 +3,8 @@ export const API_URL = "http://localhost:8000"
 export const API_ENDPOINTS = {
     createUser: "/create-user",
     login: "/login",
-    checkAuth: "/checkAuth"
+    checkAuth: "/checkAuth",
+    logout: "/logout"
 }
 export const PAGE_ROUTES = {
     accesspages: {

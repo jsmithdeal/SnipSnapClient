@@ -71,6 +71,37 @@ export default class APIService {
         }
     }
 
+    //Log user out
+    static async logout(): Promise<APIResponse> {
+        const url = API_URL + API_ENDPOINTS.logout;
+        
+        try {
+            const response = await axios.post(url, undefined, {
+                "withCredentials": true,
+            });
+            return {
+                success: true,
+                statusCode: response.status,
+                message: "User logged out successfully."
+            }
+        }
+        catch (error){
+            if (isAxiosError(error)){
+                return {
+                    success: false,
+                    statusCode: error.status,
+                    message: error.response?.data?.detail || error.message
+                };
+            }
+
+            return {
+                success: false,
+                statusCode: 500,
+                message: "An unknown error occurred."
+            };
+        }
+    }
+
     //Check authenticated status if context is lost (refresh, page close, etc)
     static async checkAuth(): Promise<APIResponse> {
         const url = API_URL + API_ENDPOINTS.checkAuth;
@@ -90,7 +121,7 @@ export default class APIService {
             return {
                 success: true,
                 statusCode: response.status,
-                message: "User logged in successfully.",
+                message: "Auth request successful.",
                 data: response.data
             }
         }

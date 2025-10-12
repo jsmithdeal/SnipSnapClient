@@ -2,6 +2,7 @@ import { FaUsersSlash } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa";
 
 type SnipProps = {
+    id: number;
     name: string;
     description: string;
     language: string;
