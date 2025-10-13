@@ -3,3 +3,12 @@ export interface UserBase {
     firstname: string;
     lastname: string;
 }
+
+export interface SnipBase {
+    snipid: number;
+    snipname: string;
+    sniplanguage: string;
+    snipdescription: string;
+    lastmodified: string;
+    snipshared: boolean;
+}

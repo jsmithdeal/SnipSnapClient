@@ -4,7 +4,12 @@ export const API_ENDPOINTS = {
     createUser: "/create-user",
     login: "/login",
     checkAuth: "/checkAuth",
-    logout: "/logout"
+    logout: "/logout",
+    getSnips: "/getSnips"
+}
+export const API_ACTIONS = {
+    post: "POST",
+    get: "GET"
 }
 export const PAGE_ROUTES = {
     accesspages: {

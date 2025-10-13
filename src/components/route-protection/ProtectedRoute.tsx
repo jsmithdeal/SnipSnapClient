@@ -25,5 +25,8 @@ export default function ProtectedRoute({ children }: { children: JSX.Element }){
             checkAuth();
     }, [])
 
-    return children;
+    if (!context.authenticated)
+        return null;
+    else
+        return children;
 }
