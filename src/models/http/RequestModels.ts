@@ -1,4 +1,4 @@
-import type { SnipBase, UserBase } from './BaseModels';
+import type { UserBase } from './BaseModels';
 
 export interface CreateUserRequest extends UserBase  {
     password: string;
@@ -7,8 +7,4 @@ export interface CreateUserRequest extends UserBase  {
 export interface LoginRequest {
     email: string;
     password: string;
-}
-
-export interface SnipsRequest extends SnipBase {
-
 }

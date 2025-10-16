@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
-import Snip from "../controls/Snip";
+import Snip from "../Snip";
 import APIService from "../../services/api-service";
 import { createToast } from "../../utilities/utilityFunctions";
-import type { SnipsRequest } from "../../models/http/RequestModels";
+import type { SnipsResponse } from "../../models/http/ResponseModels";
 
 export default function SnipsWrapper(){
     const snipClasses = "h-[18rem] w-full cursor-pointer duration-300 hover:-translate-y-1 hover:scale-102";
-    const [snips, setSnips] = useState<SnipsRequest[]>([]);
+    const [snips, setSnips] = useState<SnipsResponse[]>([]);
 
     useEffect(() => {
         const getSnips = async () => {
             const snipsResponse = await APIService.getSnips();
 
             if (snipsResponse.success)
-                setSnips(snipsResponse.data as SnipsRequest[]);
+                setSnips(snipsResponse.data as SnipsResponse[]);
             else
                 createToast(false, "There was an error retrieving snips");
         }

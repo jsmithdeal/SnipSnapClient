@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import  APIService  from "../../services/api-service"
+import  APIService  from "../services/api-service"
 import Input from "./Input";
-import type { CreateUserRequest } from "../../models/http/RequestModels";
-import { createToast } from "../../utilities/utilityFunctions";
+import type { CreateUserRequest } from "../models/http/RequestModels";
+import { createToast } from "../utilities/utilityFunctions";
 import { Bounce, toast } from "react-toastify";
-import { PAGE_ROUTES } from "../../utilities/configVariables";
+import { PAGE_ROUTES } from "../utilities/configVariables";
 
 //The create account form component
 export default function CreateAccount(){

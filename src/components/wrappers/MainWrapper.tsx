@@ -4,9 +4,9 @@ import { MdOutlineClose } from "react-icons/md";
 import ContentWrapper from "./ContentWrapper";
 import { useEffect, useState } from 'react'
 import { MdOutlineExpandMore } from "react-icons/md";
-import DesktopMenu from "../controls/DesktopMenu";
-import MobileMenu from "../controls/MobileMenu";
-import Logout from "../controls/Logout";
+import DesktopMenu from "../DesktopMenu";
+import MobileMenu from "../MobileMenu";
+import Logout from "../Logout";
 
 //Main wrapper for components inside of snipsnap. This houses the top bar, desktop side menu, 
 //mobile slide down menu, and main content window

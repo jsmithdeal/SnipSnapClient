@@ -5,7 +5,8 @@ export const API_ENDPOINTS = {
     login: "/login",
     checkAuth: "/checkAuth",
     logout: "/logout",
-    getSnips: "/getSnips"
+    getSnips: "/getSnips",
+    getSettings: "/getSettings"
 }
 export const API_ACTIONS = {
     post: "POST",
@@ -19,6 +20,7 @@ export const PAGE_ROUTES = {
     },
     userpages: {
         root: "/userpages",
-        snips: "/userpages/snips"
+        snips: "/userpages/snips",
+        settings: "/userpages/settings"
     }
 }

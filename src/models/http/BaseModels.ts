@@ -12,3 +12,9 @@ export interface SnipBase {
     lastmodified: string;
     snipshared: boolean;
 }
+
+export interface ContactsBase {
+    userid: number
+    contactid: number
+    displayname: string
+}

@@ -1,10 +1,10 @@
 import { TbLogout } from "react-icons/tb";
-import APIService from "../../services/api-service";
+import APIService from "../services/api-service";
 import { useNavigate } from "react-router-dom";
-import { createToast } from "../../utilities/utilityFunctions";
-import { PAGE_ROUTES } from "../../utilities/configVariables";
+import { createToast } from "../utilities/utilityFunctions";
+import { PAGE_ROUTES } from "../utilities/configVariables";
 import { useContext } from "react";
-import { SnipSnapContext } from "../../contexts/SnipSnapContext";
+import { SnipSnapContext } from "../contexts/SnipSnapContext";
 
 export default function Logout(){
     const navigate = useNavigate();

@@ -1,14 +1,15 @@
 import './App.css'
 import LoginWrapper from './components/wrappers/LoginWrapper'
-import CreateAccount from './components/controls/SignUpForm'
+import CreateAccount from './components/SignUpForm'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import LoginForm from './components/controls/LoginForm'
+import LoginForm from './components/LoginForm'
 import { Bounce, ToastContainer } from 'react-toastify'
 import MainWrapper from './components/wrappers/MainWrapper'
 import SnipSnapContextProvider from './contexts/SnipSnapContext'
 import ProtectedRoute from './components/route-protection/ProtectedRoute'
 import { PAGE_ROUTES } from './utilities/configVariables'
 import SnipsWrapper from './components/wrappers/SnipsWrapper'
+import SettingsWrapper from './components/wrappers/SettingsWrapper'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           >
             <Route index element={<Navigate to={ PAGE_ROUTES.userpages.snips } replace />} />
             <Route path={ PAGE_ROUTES.userpages.snips } element={ <SnipsWrapper /> } />
+            <Route path={ PAGE_ROUTES.userpages.settings } element={ <SettingsWrapper /> } />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -22,12 +22,17 @@ export default class APIService {
 
     //Check authenticated status if context is lost (refresh, page close, etc)
     static async checkAuth(): Promise<APIResponse> {
-        return await this.makeRequest(API_ENDPOINTS.checkAuth, API_ACTIONS.post, true)
+        return await this.makeRequest(API_ENDPOINTS.checkAuth, API_ACTIONS.post, true);
     }
 
     //Get list of snips
     static async getSnips(): Promise<APIResponse> {
-        return await this.makeRequest(API_ENDPOINTS.getSnips, API_ACTIONS.get, true)
+        return await this.makeRequest(API_ENDPOINTS.getSnips, API_ACTIONS.get, true);
+    }
+
+    //Get settings object
+    static async getSettings(): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.getSettings, API_ACTIONS.get, true);
     }
 
     private static async makeRequest(endpoint: string, action: string, requiresAuth: boolean, payload?: object): Promise<APIResponse> {

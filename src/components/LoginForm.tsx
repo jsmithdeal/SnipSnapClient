@@ -1,11 +1,11 @@
 import { useContext, useState } from 'react'
-import Input from '../controls/Input'
-import APIService from '../../services/api-service';
-import { createToast } from '../../utilities/utilityFunctions';
-import type { LoginRequest } from '../../models/http/RequestModels';
+import Input from './Input'
+import APIService from '../services/api-service';
+import { createToast } from '../utilities/utilityFunctions';
+import type { LoginRequest } from '../models/http/RequestModels';
 import { Link, useNavigate } from 'react-router-dom';
-import { SnipSnapContext } from '../../contexts/SnipSnapContext';
-import { PAGE_ROUTES } from '../../utilities/configVariables';
+import { SnipSnapContext } from '../contexts/SnipSnapContext';
+import { PAGE_ROUTES } from '../utilities/configVariables';
 
 //The login form component
 export default function LoginForm(){
