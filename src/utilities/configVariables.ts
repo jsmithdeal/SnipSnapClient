@@ -6,11 +6,17 @@ export const API_ENDPOINTS = {
     checkAuth: "/checkAuth",
     logout: "/logout",
     getSnips: "/getSnips",
-    getSettings: "/getSettings"
+    getSettings: "/getSettings",
+    saveUserInfo: "/saveUserInfo",
+    deleteUser: "/deleteUser",
+    deleteContact: "/deleteContact/",
+    createContact: "/createContact"
 }
 export const API_ACTIONS = {
     post: "POST",
-    get: "GET"
+    get: "GET",
+    patch: "PATCH",
+    delete: "DELETE"
 }
 export const PAGE_ROUTES = {
     accesspages: {

@@ -1,6 +1,6 @@
 import axios, { AxiosError, isAxiosError } from "axios";
 import { API_URL, API_ENDPOINTS, API_ACTIONS } from "../utilities/configVariables";
-import type { CreateUserRequest, LoginRequest } from "../models/http/RequestModels";
+import type { CreateContactRequest, CreateUserRequest, LoginRequest, SaveUserRequest } from "../models/http/RequestModels";
 import type APIResponse from "../models/http/APIResponse";
 import Cookies from "js-cookie"
 
@@ -35,6 +35,26 @@ export default class APIService {
         return await this.makeRequest(API_ENDPOINTS.getSettings, API_ACTIONS.get, true);
     }
 
+    //Save user information
+    static async saveUserInfo(saveUserReq: SaveUserRequest): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.saveUserInfo, API_ACTIONS.patch, true, saveUserReq);
+    }
+
+    //Delete user account
+    static async deleteUser(): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.deleteUser, API_ACTIONS.delete, true);
+    }
+
+    //Delete contact
+    static async deleteContact(contactId: number): Promise<APIResponse> {
+        return await this.makeRequest((API_ENDPOINTS.deleteContact + contactId), API_ACTIONS.delete, true);
+    }
+
+    //Delete contact
+    static async createContact(contactReq: CreateContactRequest): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.createContact, API_ACTIONS.post, true, contactReq);
+    }
+
     private static async makeRequest(endpoint: string, action: string, requiresAuth: boolean, payload?: object): Promise<APIResponse> {
         try {
             let csfrToken = undefined;
@@ -58,6 +78,10 @@ export default class APIService {
 
             if (action.toUpperCase() == API_ACTIONS.post)
                 response = await axios.post(endpoint, payload, config);
+            else if (action.toUpperCase() == API_ACTIONS.patch)
+                response = await axios.patch(endpoint, payload, config);
+            else if (action.toUpperCase() == API_ACTIONS.delete)
+                response = await axios.delete(endpoint, config);
             else
                 response = await axios.get(endpoint, config);
 
