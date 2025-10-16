@@ -73,9 +73,9 @@ export default function SettingsWrapper(){
     }
 
     //Delete the account
-    async function deleteUser(){
+    async function deleteAccount(){
         if (confirm("Delete this account? All data related to this account will be permanently lost.")){
-            const deleteResponse = await APIService.deleteUser();
+            const deleteResponse = await APIService.deleteAccount();
 
             if (deleteResponse.success){
                 context.setAuthenticated(false);
@@ -166,7 +166,7 @@ export default function SettingsWrapper(){
 
                 <div className="mt-1">
                     <Input type='submit' value="Save" className={`mt-3 mr-3 text-white cursor-pointer rounded-md ${!saveInfoDisabled ? "bg-indigo-800 hover:bg-indigo-600" : "bg-zinc-300"}`} disabled={saveInfoDisabled} />
-                    <Input type="button" value="Delete Account" className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' onClick={deleteUser} />
+                    <Input type="button" value="Delete Account" className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' onClick={deleteAccount} />
                 </div>
             </form>
 

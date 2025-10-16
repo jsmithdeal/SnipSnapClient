@@ -8,7 +8,7 @@ export const API_ENDPOINTS = {
     getSnips: "/getSnips",
     getSettings: "/getSettings",
     saveUserInfo: "/saveUserInfo",
-    deleteUser: "/deleteUser",
+    deleteAccount: "/deleteAccount",
     deleteContact: "/deleteContact/",
     createContact: "/createContact"
 }

@@ -41,8 +41,8 @@ export default class APIService {
     }
 
     //Delete user account
-    static async deleteUser(): Promise<APIResponse> {
-        return await this.makeRequest(API_ENDPOINTS.deleteUser, API_ACTIONS.delete, true);
+    static async deleteAccount(): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.deleteAccount, API_ACTIONS.delete, true);
     }
 
     //Delete contact
