@@ -10,6 +10,7 @@ import ProtectedRoute from './components/route-protection/ProtectedRoute'
 import { PAGE_ROUTES } from './utilities/configVariables'
 import SnipsWrapper from './components/wrappers/SnipsWrapper'
 import SettingsWrapper from './components/wrappers/SettingsWrapper'
+import SnipDetailsWrapper from './components/wrappers/SnipDetailsWrapper'
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           >
             <Route index element={<Navigate to={ PAGE_ROUTES.userpages.snips } replace />} />
             <Route path={ PAGE_ROUTES.userpages.snips } element={ <SnipsWrapper /> } />
+            <Route path={ PAGE_ROUTES.userpages.snipdetails } element={ <SnipDetailsWrapper /> } />
             <Route path={ PAGE_ROUTES.userpages.settings } element={ <SettingsWrapper /> } />
           </Route>
         </Routes>

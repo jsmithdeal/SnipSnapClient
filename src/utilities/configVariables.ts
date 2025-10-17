@@ -27,6 +27,7 @@ export const PAGE_ROUTES = {
     userpages: {
         root: "/userpages",
         snips: "/userpages/snips",
+        snipdetails: "/userpages/snipdetails",
         settings: "/userpages/settings"
     }
 }
