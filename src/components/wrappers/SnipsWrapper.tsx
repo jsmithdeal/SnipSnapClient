@@ -3,6 +3,7 @@ import Snip from "../Snip";
 import APIService from "../../services/api-service";
 import { createToast } from "../../utilities/utilityFunctions";
 import type { SnipsResponse } from "../../models/http/ResponseModels";
+import { CiFaceFrown } from "react-icons/ci";
 
 export default function SnipsWrapper(){
     const snipClasses = "h-[18rem] w-full cursor-pointer duration-300 hover:-translate-y-1 hover:scale-102";
@@ -22,11 +23,20 @@ export default function SnipsWrapper(){
     }, []);
 
     return (
-        <div className="flex justify-items-center grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5">
+        <div className={`flex justify-items-center grid grid-cols-1 ${snips.length != 0 && "sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"}`}>
             {
+                snips.length != 0 
+                ? 
                 snips.map(snip => (
                     <Snip key={snip.snipid} snipid={snip.snipid} snipname={snip.snipname} sniplanguage={snip.sniplanguage} snipdescription={snip.snipdescription} lastmodified={snip.lastmodified} snipshared={snip.snipshared} className={snipClasses} />
                 ))
+                :
+                (
+                    <>
+                        <CiFaceFrown  className="text-6xl text-zinc-400" />
+                        <span className="brand-font text-xl text-zinc-400">Nothing to see here...</span>
+                    </>
+                )
             }
         </div>
     )

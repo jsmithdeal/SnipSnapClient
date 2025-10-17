@@ -68,10 +68,10 @@ export default function MainWrapper(){
                 </div>
             </div>
 
-            <div className="lg:hidden z-50">
+            <div className="lg:hidden z-50" onClick={() => setMobileMenu(false)}>
                 <div className="relative">
                     <div className={`w-screen h-[calc(100dvh-4.75rem)] bg-zinc-900 absolute transform transition-transform duration-300 origin-top ${mobileMenu ? "scale-y-100" : "scale-y-0"}`}>
-                        <MobileMenu className="overflow-hidden flex flex-col items-center"/>
+                        <MobileMenu className="mt-10 overflow-hidden flex flex-col items-center" />
                     </div>
                 </div>
             </div>
