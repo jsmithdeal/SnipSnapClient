@@ -104,7 +104,7 @@ export default function SnipDetailsWrapper(){
 
             <label className={labelClassName}>Content</label>
             <div className="lg:mb-4 grid grid-rows-[1fr_auto] lg:grid-cols-[1fr_auto]">
-                <CodeMirror value={contentVal} onChange={onCodeChange} height="200px" extensions={[getExtension()]} theme={getTheme()} className="border-2 border-zinc-300 rounded-sm" />
+                <CodeMirror value={contentVal} onChange={onCodeChange} height="300px" extensions={[getExtension()]} theme={getTheme()} className="overflow-x-auto border-2 border-zinc-300 rounded-sm" />
                 
                 <div className="mt-3 flex justify-end lg:block lg:ms-3 lg:mt-0">
                     <IoCopy onClick={
