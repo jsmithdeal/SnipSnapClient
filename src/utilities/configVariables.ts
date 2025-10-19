@@ -31,3 +31,19 @@ export const PAGE_ROUTES = {
         settings: "/userpages/settings"
     }
 }
+export const SNIP_LANGUAGES = {
+    plaintext: "Plain Text",
+    cpp: "C++",
+    csharp: "C#",
+    go: "Go",
+    html: "HTML",
+    java: "Java",
+    javascript: "JavaScript",
+    json: "JSON",
+    php: "PHP",
+    python: "Python",
+    rust: "Rust",
+    sass: "SASS",
+    sql: "SQL",
+    xml: "XML"
+}

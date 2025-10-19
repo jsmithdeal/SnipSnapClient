@@ -21,7 +21,7 @@ export default function Snip(props: SnipProps){
     return (
         <div className={props.className}>
             <div className="bg-indigo-800 rounded-xl h-full grid grid-rows-[auto_1fr_auto] hover:shadow-lg hover:shadow-zinc-800">
-                <div className="text-3xl text-amber-600 p-5 brand-font overflow-hidden whitespace-nowrap text-ellipsis" title={props.snipname}>
+                <div className="text-3xl text-amber-600 p-5 brand-font overflow-hidden whitespace-nowrap text-ellipsis" title="Snip name">
                     {props.snipname}
                 </div>
                 <div className="text-white ps-5 pe-5 pb-5 overflow-y-auto break-words">

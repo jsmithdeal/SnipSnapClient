@@ -10,6 +10,7 @@ import { SnipSnapContext } from "../../contexts/SnipSnapContext";
 import { PAGE_ROUTES } from "../../utilities/configVariables";
 
 export default function SettingsWrapper(){
+    const labelClassName = "text-indigo-800 brand-font";
     const navigate = useNavigate();
     const context = useContext(SnipSnapContext);
     
@@ -160,9 +161,9 @@ export default function SettingsWrapper(){
             {/* User information block */}
             <h1 className="brand-font text-3xl text-amber-600">My Information</h1>
             <form onSubmit={saveUserInfo} method="POST" className="mt-3">
-                <Input onChange={(e) => checkUserInfo("email", e)} idAndName='emailText' type='email' className='w-full bg-white border-2 border-zinc-300' placeholder='Email' required value={emailText}/>
-                <Input onChange={(e) => checkUserInfo("fName", e)} idAndName='fNameText' type='text' className='w-full bg-white mt-3 border-2 border-zinc-300' placeholder='First Name' required value={fNameText}/>
-                <Input onChange={(e) => checkUserInfo("lName", e)} idAndName='lNameText' type='text' className='w-full bg-white mt-3 border-2 border-zinc-300' placeholder='Last Name' required value={lNameText}/>
+                <Input label="Email" labelClassName={labelClassName} onChange={(e) => checkUserInfo("email", e)} idAndName='emailText' type='email' className='w-full mb-4' required value={emailText}/>
+                <Input label="First Name" labelClassName={labelClassName} onChange={(e) => checkUserInfo("fName", e)} idAndName='fNameText' type='text' className='w-full mb-4' required value={fNameText}/>
+                <Input label="Last Name" labelClassName={labelClassName} onChange={(e) => checkUserInfo("lName", e)} idAndName='lNameText' type='text' className='w-full' required value={lNameText}/>
 
                 <div className="mt-1">
                     <Input type='submit' value="Save" className={`mt-3 mr-3 text-white cursor-pointer rounded-md ${!saveInfoDisabled ? "bg-indigo-800 hover:bg-indigo-600" : "bg-zinc-300"}`} disabled={saveInfoDisabled} />
@@ -179,13 +180,14 @@ export default function SettingsWrapper(){
                         setSaveCDisabled(e.target.value && cDNameText ? false : true);
                     }
                 } 
-                idAndName='emailText' type='email' className='w-full bg-white border-2 border-zinc-300' placeholder='Email' required value={cEmailText}/>
+                label="Email" labelClassName={labelClassName} idAndName='emailText' type='email' className='w-full mb-4' required value={cEmailText}/>
                 <Input onChange={
                     (e) => {
                         setCDNameText(e.target.value);
                         setSaveCDisabled(e.target.value && cEmailText ? false : true);
                     }
-                } idAndName='dNameText' type='text' className='w-full bg-white mt-3 border-2 border-zinc-300' placeholder='Display Name (whatever you want to call this contact)' required value={cDNameText}/>
+                } 
+                label="Display Name" labelClassName={labelClassName} idAndName='dNameText' type='text' className='w-full' required value={cDNameText}/>
 
                 <div className="mt-1">
                     <Input type='submit' value="Save" className={`mt-3 mr-3 text-white cursor-pointer rounded-md ${!saveCDisabled ? "bg-indigo-800 hover:bg-indigo-600" : "bg-zinc-300"}`} disabled={saveCDisabled} />
@@ -194,7 +196,7 @@ export default function SettingsWrapper(){
 
             {/* My contacts block */}
             <h1 className="brand-font text-3xl text-amber-600 mt-15">My Contacts</h1>
-            <Select onSelect={(e) => setContactDelId(e.target.value)} size={4} multiple={false} options={contactOptions} className="mt-3 w-full bg-white border-2 border-zinc-300" />
+            <Select onSelect={(e) => setContactDelId(e.target.value)} size={4} multiple={false} options={contactOptions} className="mt-3 w-full" />
             <Input type="button" value="Delete Contact" className={`mt-3 text-white cursor-pointer rounded-md ${contactDelId ? "bg-red-800 hover:bg-red-700" : "bg-zinc-300"}`} disabled={contactDelId == ""} onClick={deleteContact} />  
         </div>
     )

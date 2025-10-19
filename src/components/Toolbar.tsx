@@ -15,7 +15,7 @@ export default function Toolbar(props: ToolbarProps){
     return (
         <div className="grid grid-rows-1 grid-cols-[1fr_auto_auto] gap-3">
             <div>
-                <Input onKeyDown={props.searchBarKeyDown} onChange={props.searchBarChange} type="text" className="bg-white w-full border-2 border-zinc-300" placeholder={props.searchBarPlaceholder} />
+                <Input onKeyDown={props.searchBarKeyDown} onChange={props.searchBarChange} type="text" className="w-full" placeholder={props.searchBarPlaceholder} />
             </div>
             <div onClick={props.searchBarSearch} className="flex justify-center items-center text-2xl text-indigo-800" title="Search">
                 <FaSearch className="cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105"  />

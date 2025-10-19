@@ -1,19 +1,20 @@
 import { Bounce, toast } from "react-toastify";
 
 //Create toast helper. Have to call toast.xxx in some situationsd where callbacks are needed
-export function createToast(success: boolean, message?: string){
+export function createToast(success: boolean, message?: string, time?: number){
     if (success){
         toast.success(message, {
-            autoClose: 5000,
+            autoClose: time == undefined ? 5000 : time,
             theme: "dark",
             transition: Bounce,
+            pauseOnHover: false
         });
     }
     else {
         toast.error(message, {
-            autoClose: 5000,
+            autoClose: time == undefined ? 5000 : time,
             theme: "dark",
-            transition: Bounce,
+            transition: Bounce
         });
     }
 }
