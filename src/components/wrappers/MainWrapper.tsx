@@ -8,7 +8,7 @@ import DesktopMenu from "../DesktopMenu";
 import MobileMenu from "../MobileMenu";
 import Logout from "../Logout";
 
-//Main wrapper for components inside of snipsnap. This houses the top bar, desktop side menu, 
+//Main wrapper for components inside of snipsnap. This houses the top bar, desktop slide down menu, 
 //mobile slide down menu, and main content window
 export default function MainWrapper(){
     const [mobileMenu, setMobileMenu] = useState(false);

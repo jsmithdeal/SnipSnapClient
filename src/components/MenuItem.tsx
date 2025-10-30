@@ -12,6 +12,7 @@ type MenuItemProps = {
     icon?: IconType;
 }
 
+//Menu items for mobile and desktop menus
 export default function MenuItem(props: MenuItemProps){
     return (
         <div className={props.outterWrapperClassName}>

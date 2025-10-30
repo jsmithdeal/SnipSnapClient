@@ -8,10 +8,12 @@ type SnipProps = {
     snipdescription: string;
     lastmodified: string;
     snipshared: boolean;
+    onClick: (e: React.MouseEvent<HTMLInputElement>) => void;
     className?: string;
 }
 
 export default function Snip(props: SnipProps){
+    //Formatted version of date to display
     const modDate = new Date(props.lastmodified).toLocaleString('en-US', {
         month: '2-digit',
         day: '2-digit',
@@ -19,7 +21,7 @@ export default function Snip(props: SnipProps){
     });
 
     return (
-        <div className={props.className}>
+        <div className={props.className} onClick={props.onClick}>
             <div className="bg-indigo-800 rounded-xl h-full grid grid-rows-[auto_1fr_auto] hover:shadow-lg hover:shadow-zinc-800">
                 <div className="text-3xl text-amber-600 p-5 brand-font overflow-hidden whitespace-nowrap text-ellipsis" title="Snip name">
                     {props.snipname}

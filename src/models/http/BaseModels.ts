@@ -18,3 +18,8 @@ export interface ContactsBase {
     contactid: number
     displayname: string
 }
+
+export interface CollectionBase {
+    collectionname: string;
+    collectionid: number;
+}

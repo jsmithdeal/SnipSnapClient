@@ -11,6 +11,7 @@ type ToolbarProps = {
     searchBarSearch: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
+//The toolbar containing search bar and various buttons
 export default function Toolbar(props: ToolbarProps){
     return (
         <div className="grid grid-rows-1 grid-cols-[1fr_auto_auto] gap-3">

@@ -10,7 +10,8 @@ export const API_ENDPOINTS = {
     saveUserInfo: "/saveUserInfo",
     deleteAccount: "/deleteAccount",
     deleteContact: "/deleteContact/",
-    createContact: "/createContact"
+    createContact: "/createContact",
+    getSnipDetails: "/getSnipDetails/"
 }
 export const API_ACTIONS = {
     post: "POST",
@@ -27,7 +28,8 @@ export const PAGE_ROUTES = {
     userpages: {
         root: "/userpages",
         snips: "/userpages/snips",
-        snipdetails: "/userpages/snipdetails",
+        createsnip: "/userpages/createsnip",
+        editsnip: "/userpages/editsnip/:snipid",
         settings: "/userpages/settings"
     }
 }

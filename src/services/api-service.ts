@@ -50,9 +50,14 @@ export default class APIService {
         return await this.makeRequest((API_ENDPOINTS.deleteContact + contactId), API_ACTIONS.delete, true);
     }
 
-    //Delete contact
+    //Create contact
     static async createContact(contactReq: CreateContactRequest): Promise<APIResponse> {
         return await this.makeRequest(API_ENDPOINTS.createContact, API_ACTIONS.post, true, contactReq);
+    }
+
+    //Get snip details
+    static async getSnipDetails(snipId: number): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.getSnipDetails + snipId, API_ACTIONS.get, true);
     }
 
     private static async makeRequest(endpoint: string, action: string, requiresAuth: boolean, payload?: object): Promise<APIResponse> {

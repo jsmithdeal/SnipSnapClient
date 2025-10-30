@@ -11,7 +11,7 @@ type TextareaProps = {
     onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
-//Input control component
+//Textarea control component
 export default function Textarea(props: TextareaProps){
     return (
         <>

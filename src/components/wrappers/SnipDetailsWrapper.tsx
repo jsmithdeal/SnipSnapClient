@@ -22,29 +22,69 @@ import React from "react";
 import { IoCopy } from "react-icons/io5";
 import { MdContentCut } from "react-icons/md";
 import { createToast } from "../../utilities/utilityFunctions";
+import { useNavigate, useParams } from "react-router-dom";
+import APIService from "../../services/api-service";
+import type { SnipDetailsResponse } from "../../models/http/ResponseModels";
 
 export default function SnipDetailsWrapper(){
     const labelClassName = "text-indigo-800 brand-font";
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [collectionOptions, setCollectionOptions] = useState<HTMLOptionElement[]>([]);
     const [collection, setCollection] = useState("");
     const [langOptions, setLangOptions] = useState<HTMLOptionElement[]>([]);
     const [language, setLanguage] = useState("");
     const [contentVal, setContentVal] = useState("");
     const [contactOptions, setContactOptions] = useState<HTMLOptionElement[]>([]);
-    const [contacts, setContacts] = useState<HTMLCollectionOf<HTMLOptionElement>>();
-
-    //TODO: on component load, check for snip ID. If present edit, if not create new
-
-    //TODO: if edit, need to get snip info. This will also need to contain full list of collections,
-    //full list of contacts, and list of contacts this snip is shared with
+    const [sharedWith, setSharedWith] = useState<string[]>([]);
+    const navigate = useNavigate();
+    const { snipid } = useParams();
 
     //TODO: implement endpoints logic for creating new, saving existing, and deleting existing
     
     useEffect(() => {
+        //Get the languages object from config variables and unpack them into the dropdown
         setLangOptions(Object.entries(SNIP_LANGUAGES).map(([value, text]) => {
             return new Option(text, value);
-        }))
+        }));
+
+        //Gets the snip details
+        const getSnipDetails = async (id: number) => {
+            const snipDetailsResponse = await APIService.getSnipDetails(id);
+
+            //If details retrieved successfully, extract them and configure state
+            if (snipDetailsResponse.success){
+                const snipDetails = snipDetailsResponse.data as SnipDetailsResponse;
+
+                let collectionOptions: HTMLOptionElement[] = snipDetails.collections?.map(c => {
+                    return new Option(c.collectionname, c.collectionid.toString());
+                });
+                collectionOptions.splice(0, 0, new Option("", ""))
+
+                const contactOptions: HTMLOptionElement[] = snipDetails.contacts.map(c => {
+                    return new Option(c.displayname, c.contactid.toString());
+                });
+
+                setName(snipDetails.snipname);
+                setDescription(snipDetails.snipdescription);
+                setCollectionOptions(collectionOptions);
+                setCollection(snipDetails.collectionid?.toString());
+                setLanguage(snipDetails.sniplanguage);
+                setContentVal(snipDetails.snipcontent);
+                setContactOptions(contactOptions);
+                setSharedWith(Array.from(snipDetails.sharedwith, contactid => contactid.toString()));
+            }
+            else {
+                createToast(false, snipDetailsResponse.message);
+                navigate(-1);
+            }
+        }
+
+        //Only try to get the snip details if snipid found
+        if (snipid){
+            let id = parseInt(snipid ?? "");
+            getSnipDetails(id);
+        }
     },[])
 
     //Copied this from react-codemirror npm page
@@ -52,6 +92,7 @@ export default function SnipDetailsWrapper(){
         setContentVal(val);
     }, []);
 
+    //Get the codemirror extension for the selected language
     function getExtension() {
         switch (language) {
             case "javascript":
@@ -85,6 +126,7 @@ export default function SnipDetailsWrapper(){
         }
     }
     
+    //Theme = none if plaintext, else vscode
     function getTheme() {
         if (language == "plaintext" || language == "")
             return undefined;
@@ -94,12 +136,12 @@ export default function SnipDetailsWrapper(){
 
     return (
         <>
-            <h1 className="brand-font text-3xl text-amber-600">Create a Snip</h1>
+            <h1 className="brand-font text-3xl text-amber-600">{snipid ? "Edit Snip" : "Create a Snip"}</h1>
             <form id="snipForm" className="mt-3 mb-4 w-full">
-                <Input onChange={(e) => setName(e.target.value)} label="Name" labelClassName={labelClassName} idAndName="snipname" type="text" className="w-full mb-4" required={true} />
-                <Textarea onChange={(e) => setDescription(e.target.value)} label="Description" labelClassName={labelClassName} idAndName="snipdescription" className="w-full mb-4" required={true} />
-                <Select onSelect={(e) => setCollection(e.target.value)} label="Collection" labelClassName={labelClassName} idAndName="collectionid" options={[]} className="w-full mb-4" />
-                <Select onSelect={(e) => setLanguage(e.target.value)} label="Language" labelClassName={labelClassName} idAndName="sniplanguage" options={langOptions} className="w-full" />
+                <Input onChange={(e) => setName(e.target.value)} label="Name" labelClassName={labelClassName} idAndName="snipname" type="text" className="w-full mb-4" required={true} value={name} />
+                <Textarea onChange={(e) => setDescription(e.target.value)} label="Description" labelClassName={labelClassName} idAndName="snipdescription" className="w-full mb-4" required={true} value={description} />
+                <Select onSelect={(e) => setCollection(e.target.value)} label="Collection" labelClassName={labelClassName} idAndName="collectionid" options={collectionOptions} value={collection} className="w-full mb-4" />
+                <Select onSelect={(e) => setLanguage(e.target.value)} label="Language" labelClassName={labelClassName} idAndName="sniplanguage" options={langOptions} value={language} className="w-full" />
             </form>
 
             <label className={labelClassName}>Content</label>
@@ -123,12 +165,16 @@ export default function SnipDetailsWrapper(){
                 </div>
             </div>
 
-            <Select onSelect={(e) => setContacts(e.target.selectedOptions)} form="snipForm" label="Share With" labelClassName={labelClassName} idAndName="contacts" size={4} multiple={true} options={[]} className="w-full" />
+            <Select onSelect={
+                (e) => setSharedWith(Array.from(e.target.selectedOptions, option => option.value))
+            } form="snipForm" label="Share With" labelClassName={labelClassName} idAndName="contacts" size={4} multiple={true} options={contactOptions} className="w-full" value={sharedWith} />
             <Input form="snipForm" type="hidden" idAndName="snipcontent" value={contentVal} required={true} />
 
             <div className="mt-1">
                 <Input type='submit' value="Save Snip" className="bg-indigo-800 hover:bg-indigo-600 mt-3 mr-3 text-white cursor-pointer rounded-md" />
-                <Input type="button" value="Delete Snip" className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' />
+                {
+                    snipid && <Input type="button" value="Delete Snip" className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' />
+                }
             </div>
         </>
     )
