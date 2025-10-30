@@ -11,7 +11,8 @@ export const API_ENDPOINTS = {
     deleteAccount: "/deleteAccount",
     deleteContact: "/deleteContact/",
     createContact: "/createContact",
-    getSnipDetails: "/getSnipDetails/"
+    getSnipDetails: "/getSnipDetails/",
+    getSnipInit: "/getSnipInit"
 }
 export const API_ACTIONS = {
     post: "POST",

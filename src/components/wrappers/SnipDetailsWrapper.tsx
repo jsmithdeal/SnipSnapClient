@@ -24,7 +24,7 @@ import { MdContentCut } from "react-icons/md";
 import { createToast } from "../../utilities/utilityFunctions";
 import { useNavigate, useParams } from "react-router-dom";
 import APIService from "../../services/api-service";
-import type { SnipDetailsResponse } from "../../models/http/ResponseModels";
+import type { CollectionResponse, ContactsResponse, SnipDetailsResponse, SnipInitResponse } from "../../models/http/ResponseModels";
 
 export default function SnipDetailsWrapper(){
     const labelClassName = "text-indigo-800 brand-font";
@@ -48,7 +48,7 @@ export default function SnipDetailsWrapper(){
             return new Option(text, value);
         }));
 
-        //Gets the snip details
+        //Gets the snip details when editing an existing snip
         const getSnipDetails = async (id: number) => {
             const snipDetailsResponse = await APIService.getSnipDetails(id);
 
@@ -56,22 +56,12 @@ export default function SnipDetailsWrapper(){
             if (snipDetailsResponse.success){
                 const snipDetails = snipDetailsResponse.data as SnipDetailsResponse;
 
-                let collectionOptions: HTMLOptionElement[] = snipDetails.collections?.map(c => {
-                    return new Option(c.collectionname, c.collectionid.toString());
-                });
-                collectionOptions.splice(0, 0, new Option("", ""))
-
-                const contactOptions: HTMLOptionElement[] = snipDetails.contacts.map(c => {
-                    return new Option(c.displayname, c.contactid.toString());
-                });
-
+                loadContactsAndCollections(snipDetails.contacts, snipDetails.collections);
                 setName(snipDetails.snipname);
                 setDescription(snipDetails.snipdescription);
-                setCollectionOptions(collectionOptions);
                 setCollection(snipDetails.collectionid?.toString());
                 setLanguage(snipDetails.sniplanguage);
                 setContentVal(snipDetails.snipcontent);
-                setContactOptions(contactOptions);
                 setSharedWith(Array.from(snipDetails.sharedwith, contactid => contactid.toString()));
             }
             else {
@@ -80,17 +70,49 @@ export default function SnipDetailsWrapper(){
             }
         }
 
-        //Only try to get the snip details if snipid found
+        //Get init data when creating a new snip
+        const getSnipInit = async () => {
+            const snipInitResponse = await APIService.getSnipInit();
+
+            if (snipInitResponse.success){
+                const initData = snipInitResponse.data as SnipInitResponse;
+                loadContactsAndCollections(initData.contacts, initData.collections)
+            }
+            else {
+                createToast(false, snipInitResponse.message);
+                navigate(-1);
+            }
+        }
+
+        //Only try to get the snip details if snipid found. Otherwise, need snip init info
+        //for creating a new snip
         if (snipid){
             let id = parseInt(snipid ?? "");
             getSnipDetails(id);
         }
+        else 
+            getSnipInit();
     },[])
 
     //Copied this from react-codemirror npm page
     const onCodeChange = React.useCallback((val: React.SetStateAction<string>) => {
         setContentVal(val);
     }, []);
+
+    //Bind data that is common between edit snip and create new
+    function loadContactsAndCollections(contacts: ContactsResponse[], collections: CollectionResponse[]){
+        let collectionOptions: HTMLOptionElement[] = collections?.map(c => {
+            return new Option(c.collectionname, c.collectionid.toString());
+        });
+        collectionOptions.splice(0, 0, new Option("", ""))
+
+        let contactOptions: HTMLOptionElement[] = contacts?.map(c => {
+            return new Option(c.displayname, c.contactid.toString());
+        });
+
+        setCollectionOptions(collectionOptions);
+        setContactOptions(contactOptions);
+    }
 
     //Get the codemirror extension for the selected language
     function getExtension() {

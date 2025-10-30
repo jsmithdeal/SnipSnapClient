@@ -27,3 +27,8 @@ export interface SnipDetailsResponse extends SnipBase {
     contacts: ContactsResponse[];
     sharedwith: number[];
 }
+
+export interface SnipInitResponse {
+    contacts: ContactsResponse[];
+    collections: CollectionResponse[];
+}
