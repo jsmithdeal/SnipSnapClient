@@ -4,16 +4,17 @@ export interface UserResponse extends UserBase {
     
 }
 
-export interface SnipsResponse extends SnipBase {
-
-}
-
 export interface ContactsResponse extends ContactsBase {
 
 }
 
 export interface CollectionResponse extends CollectionBase {
     
+}
+
+export interface SnipsResponse extends SnipBase {
+    lastmodified: string;
+    snipshared: boolean;
 }
 
 export interface SettingsResponse extends UserBase {

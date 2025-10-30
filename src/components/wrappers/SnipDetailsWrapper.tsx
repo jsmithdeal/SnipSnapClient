@@ -25,6 +25,7 @@ import { createToast } from "../../utilities/utilityFunctions";
 import { useNavigate, useParams } from "react-router-dom";
 import APIService from "../../services/api-service";
 import type { CollectionResponse, ContactsResponse, SnipDetailsResponse, SnipInitResponse } from "../../models/http/ResponseModels";
+import type { SaveSnipRequest } from "../../models/http/RequestModels";
 
 export default function SnipDetailsWrapper(){
     const labelClassName = "text-indigo-800 brand-font";
@@ -38,7 +39,7 @@ export default function SnipDetailsWrapper(){
     const [contactOptions, setContactOptions] = useState<HTMLOptionElement[]>([]);
     const [sharedWith, setSharedWith] = useState<string[]>([]);
     const navigate = useNavigate();
-    const { snipid } = useParams();
+    const { snipidparam } = useParams();
 
     //TODO: implement endpoints logic for creating new, saving existing, and deleting existing
     
@@ -77,6 +78,7 @@ export default function SnipDetailsWrapper(){
             if (snipInitResponse.success){
                 const initData = snipInitResponse.data as SnipInitResponse;
                 loadContactsAndCollections(initData.contacts, initData.collections)
+                setLanguage("plaintext");
             }
             else {
                 createToast(false, snipInitResponse.message);
@@ -86,8 +88,8 @@ export default function SnipDetailsWrapper(){
 
         //Only try to get the snip details if snipid found. Otherwise, need snip init info
         //for creating a new snip
-        if (snipid){
-            let id = parseInt(snipid ?? "");
+        if (snipidparam){
+            let id = parseInt(snipidparam ?? "");
             getSnipDetails(id);
         }
         else 
@@ -156,10 +158,55 @@ export default function SnipDetailsWrapper(){
             return vscodeDark;
     }
 
+    //Create snip edits or save new snip
+    async function saveSnip(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+
+        const saveSnipRequest: SaveSnipRequest = {
+            snipid: snipidparam ? parseInt(snipidparam) : 0,
+            snipname: name,
+            snipdescription: description,
+            sniplanguage: language,
+            snipcontent: contentVal,
+            collectionid: parseInt(collection),
+            sharedwith: Array.from(sharedWith, contactId => parseInt(contactId)),
+            lastmodified: new Date()
+        }
+
+        let saveSnipReponse;
+
+        //If creating new, call new, else edit
+        if (!snipidparam)
+            saveSnipReponse = await APIService.createSnip(saveSnipRequest);
+        else
+            saveSnipReponse = await APIService.editSnip(saveSnipRequest);
+
+        if (saveSnipReponse.success){
+            createToast(true, "Snip saved");
+
+            if (!snipidparam)
+                navigate(-1);
+        }
+        else
+            createToast(false, saveSnipReponse.message);
+    }
+
+    //Delete the snip
+    async function deleteSnip(snipId: string){
+        const deleteResponse = await APIService.deleteSnip(parseInt(snipId))
+
+        if (deleteResponse.success){
+            createToast(true, "Snip deleted");
+            navigate(-1);
+        }
+        else
+            createToast(false, deleteResponse.message);
+    }
+
     return (
         <>
-            <h1 className="brand-font text-3xl text-amber-600">{snipid ? "Edit Snip" : "Create a Snip"}</h1>
-            <form id="snipForm" className="mt-3 mb-4 w-full">
+            <h1 className="brand-font text-3xl text-amber-600">{snipidparam ? "Edit Snip" : "Create a Snip"}</h1>
+            <form onSubmit={saveSnip} id="snipForm" className="mt-3 mb-4 w-full">
                 <Input onChange={(e) => setName(e.target.value)} label="Name" labelClassName={labelClassName} idAndName="snipname" type="text" className="w-full mb-4" required={true} value={name} />
                 <Textarea onChange={(e) => setDescription(e.target.value)} label="Description" labelClassName={labelClassName} idAndName="snipdescription" className="w-full mb-4" required={true} value={description} />
                 <Select onSelect={(e) => setCollection(e.target.value)} label="Collection" labelClassName={labelClassName} idAndName="collectionid" options={collectionOptions} value={collection} className="w-full mb-4" />
@@ -190,12 +237,12 @@ export default function SnipDetailsWrapper(){
             <Select onSelect={
                 (e) => setSharedWith(Array.from(e.target.selectedOptions, option => option.value))
             } form="snipForm" label="Share With" labelClassName={labelClassName} idAndName="contacts" size={4} multiple={true} options={contactOptions} className="w-full" value={sharedWith} />
-            <Input form="snipForm" type="hidden" idAndName="snipcontent" value={contentVal} required={true} />
+            <Input form="snipForm" type="hidden" idAndName="snipcontent" value={contentVal} />
 
             <div className="mt-1">
-                <Input type='submit' value="Save Snip" className="bg-indigo-800 hover:bg-indigo-600 mt-3 mr-3 text-white cursor-pointer rounded-md" />
+                <Input type='submit' value="Save Snip" form="snipForm" className="bg-indigo-800 hover:bg-indigo-600 mt-3 mr-3 text-white cursor-pointer rounded-md" />
                 {
-                    snipid && <Input type="button" value="Delete Snip" className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' />
+                    snipidparam && <Input type="button" value="Delete Snip" onClick={() => deleteSnip(snipidparam)} className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' />
                 }
             </div>
         </>

@@ -1,7 +1,7 @@
 export const APP_NAME = "SnipSnap";
 export const API_URL = "http://localhost:8000"
 export const API_ENDPOINTS = {
-    createUser: "/create-user",
+    createUser: "/createUser",
     login: "/login",
     checkAuth: "/checkAuth",
     logout: "/logout",
@@ -12,7 +12,10 @@ export const API_ENDPOINTS = {
     deleteContact: "/deleteContact/",
     createContact: "/createContact",
     getSnipDetails: "/getSnipDetails/",
-    getSnipInit: "/getSnipInit"
+    getSnipInit: "/getSnipInit",
+    createSnip: "/createSnip",
+    deleteSnip: "/deleteSnip/",
+    editSnip: "/editSnip"
 }
 export const API_ACTIONS = {
     post: "POST",
@@ -30,7 +33,7 @@ export const PAGE_ROUTES = {
         root: "/userpages",
         snips: "/userpages/snips",
         createsnip: "/userpages/createsnip",
-        editsnip: "/userpages/editsnip/:snipid",
+        editsnip: "/userpages/editsnip/:snipidparam",
         settings: "/userpages/settings"
     }
 }

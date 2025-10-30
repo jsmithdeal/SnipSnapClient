@@ -1,6 +1,6 @@
 import axios, { AxiosError, isAxiosError } from "axios";
 import { API_URL, API_ENDPOINTS, API_ACTIONS } from "../utilities/configVariables";
-import type { CreateContactRequest, CreateUserRequest, LoginRequest, SaveUserRequest } from "../models/http/RequestModels";
+import type { CreateContactRequest, CreateUserRequest, LoginRequest, SaveSnipRequest, SaveUserRequest } from "../models/http/RequestModels";
 import type APIResponse from "../models/http/APIResponse";
 import Cookies from "js-cookie"
 
@@ -63,6 +63,21 @@ export default class APIService {
     //Get snip info needed for creating a new snip
     static async getSnipInit(): Promise<APIResponse> {
         return await this.makeRequest(API_ENDPOINTS.getSnipInit, API_ACTIONS.get, true);
+    }
+
+    //Create a new snip
+    static async createSnip(saveSnipReq: SaveSnipRequest): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.createSnip, API_ACTIONS.post, true, saveSnipReq);
+    }
+
+    //Delete snip
+    static async deleteSnip(snipId: number): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.deleteSnip + snipId, API_ACTIONS.delete, true);
+    }
+
+    //Edit snip
+    static async editSnip(snip: SaveSnipRequest): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.editSnip, API_ACTIONS.patch, true, snip);
     }
 
     private static async makeRequest(endpoint: string, action: string, requiresAuth: boolean, payload?: object): Promise<APIResponse> {

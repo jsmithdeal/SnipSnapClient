@@ -93,9 +93,7 @@ export default function SettingsWrapper(){
             const deleteResponse = await APIService.deleteContact(parseInt(contactDelId));
 
             if (deleteResponse.success){
-                const updatedContacts = contactOptions.filter((option) => {
-                    option.value != contactDelId
-                });
+                const updatedContacts = contactOptions.filter(option => option.value != contactDelId);
 
                 setContactDelId("");
                 setContactOptions(updatedContacts);

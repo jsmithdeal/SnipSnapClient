@@ -61,7 +61,7 @@ export default function SnipsWrapper(){
                     filteredSnips.length != 0 
                     ? 
                     filteredSnips.map(snip => (
-                        <Snip key={snip.snipid} onClick={() => navigate(generatePath(PAGE_ROUTES.userpages.editsnip, {snipid: snip.snipid}))} snipid={snip.snipid} snipname={snip.snipname} sniplanguage={getLangText(snip.sniplanguage)} snipdescription={snip.snipdescription} lastmodified={snip.lastmodified} snipshared={snip.snipshared} className={snipClasses} />
+                        <Snip key={snip.snipid} onClick={() => navigate(generatePath(PAGE_ROUTES.userpages.editsnip, {snipidparam: snip.snipid}))} snipid={snip.snipid} snipname={snip.snipname} sniplanguage={getLangText(snip.sniplanguage)} snipdescription={snip.snipdescription} lastmodified={snip.lastmodified} snipshared={snip.snipshared} className={snipClasses} />
                     ))
                     :
                     (

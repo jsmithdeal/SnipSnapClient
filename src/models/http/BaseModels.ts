@@ -9,8 +9,6 @@ export interface SnipBase {
     snipname: string;
     sniplanguage: string;
     snipdescription: string;
-    lastmodified: string;
-    snipshared: boolean;
 }
 
 export interface ContactsBase {

@@ -33,7 +33,7 @@ export default function Snip(props: SnipProps){
                 </div>
                 <div className="font-medium brand-font text-zinc-100 p-5 grid grid-rows-[auto-auto] grid-cols-2">
                     <div>
-                        <div className="text-2xl text-amber-600" title={props.snipshared ? "Snip is shared" : "Snip is not shared"}>{props.snipshared ?  <FaUsers /> : <FaUsersSlash />}</div>
+                        <div className={`text-2xl ${props.snipshared ? "text-amber-600" : "text-zinc-400"}`} title={props.snipshared ? "Snip is shared" : "Snip is not shared"}>{props.snipshared ?  <FaUsers /> : <FaUsersSlash />}</div>
                         <div className="text-xl text-indigo-400" title="Snip language">{props.sniplanguage}</div>
                     </div>
                     <div className="relative text-lg text-indigo-400">
