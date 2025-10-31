@@ -257,7 +257,7 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
                 !props.fromSharedWithMe &&
                 <Select onSelect={
                     (e) => setSharedWith(Array.from(e.target.selectedOptions, option => option.value))
-                } form="snipForm" label="Share With" labelClassName={labelClassName} idAndName="contacts" size={4} multiple={true} options={contactOptions} className="w-full h-[6rem] lg:h-auto" value={sharedWith} />
+                } form="snipForm" label="Share With" labelClassName={labelClassName} idAndName="contacts" size={4} multiple={true} options={contactOptions} className="w-full" value={sharedWith} />
             }
             <Input form="snipForm" type="hidden" idAndName="snipcontent" value={contentVal} />
 

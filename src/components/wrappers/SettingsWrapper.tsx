@@ -195,7 +195,7 @@ export default function SettingsWrapper(){
 
             {/* My contacts block */}
             <h1 className="brand-font text-3xl text-amber-600 mt-15">My Contacts</h1>
-            <Select onSelect={(e) => setContactDelId(e.target.value)} size={4} multiple={false} options={contactOptions} className="mt-3 w-full h-[6rem] lg:h-auto" />
+            <Select onSelect={(e) => setContactDelId(e.target.value)} size={4} multiple={false} options={contactOptions} className="mt-3 w-full" />
             <Input type="button" value="Delete Contact" className={`mt-3 text-white cursor-pointer rounded-md ${contactDelId ? "bg-red-800 hover:bg-red-700" : "bg-zinc-300"}`} disabled={contactDelId == ""} onClick={deleteContact} />  
         </div>
     )
