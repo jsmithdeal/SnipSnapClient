@@ -1,6 +1,5 @@
 export const APP_NAME = "SnipSnap";
-export const API_URL = "http://localhost:8000"
-//export const API_URL = "https://<insert pc url>:8000" <-- turn windows defender off and add --host to vite command
+export const API_URL = "https://api.piofthesky.org"
 export const API_ENDPOINTS = {
     createUser: "/createUser",
     login: "/login",
