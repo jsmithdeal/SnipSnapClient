@@ -5,20 +5,31 @@ import { createToast } from "../../utilities/utilityFunctions";
 import type { SnipsResponse } from "../../models/http/ResponseModels";
 import { CiFaceFrown } from "react-icons/ci";
 import Toolbar from "../Toolbar";
-import { generatePath, useNavigate } from "react-router-dom";
+import { generatePath, useLocation, useNavigate } from "react-router-dom";
 import { PAGE_ROUTES, SNIP_LANGUAGES } from "../../utilities/configVariables";
 
-export default function SnipsWrapper(){
+//Props indicate how to load snips (varies based on what snips are being viewed)
+type SnipsWrapperProps = {
+    fromSharedWithMe?: boolean;
+}
+
+export default function SnipsWrapper(props: SnipsWrapperProps){
     const snipClasses = "h-[18rem] w-full cursor-pointer duration-300 hover:-translate-y-1 hover:scale-102";
     const [allSnips, setAllSnips] = useState<SnipsResponse[]>([]);
     const [filteredSnips, setFilteredSnips] = useState<SnipsResponse[]>([]);
     const [searchText, setSearchText] = useState("");
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         //Get the snips to display and set them in state
         const getSnips = async () => {
-            const snipsResponse = await APIService.getSnips();
+            let snipsResponse;
+
+            if (props.fromSharedWithMe)
+                snipsResponse = await APIService.getSharedWithMe();
+            else
+                snipsResponse = await APIService.getSnips();
 
             if (snipsResponse.success){
                 setAllSnips(snipsResponse.data as SnipsResponse[]);
@@ -29,7 +40,7 @@ export default function SnipsWrapper(){
         }
 
         getSnips();
-    }, []);
+    }, [location.pathname]);
 
     //Simulate search button click on enter key press
     function searchBarKeyDown(e: React.KeyboardEvent<HTMLInputElement>){
@@ -54,14 +65,21 @@ export default function SnipsWrapper(){
     }
 
     return (
-        <div>
-            <Toolbar addButtonClick={() => navigate(PAGE_ROUTES.userpages.createsnip)} addButtonTitle="Create new snip" searchBarKeyDown={(e) => searchBarKeyDown(e)} searchBarPlaceholder="Search snips by name" searchBarChange={(e) => setSearchText(e.target.value)} searchBarSearch={filterResults} />
+        <>
+            <Toolbar showAddButton={!props.fromSharedWithMe && true} addButtonClick={() => navigate(PAGE_ROUTES.userpages.createsnip)} addButtonTitle="Create new snip" searchBarKeyDown={(e) => searchBarKeyDown(e)} searchBarPlaceholder="Search snips by name" searchBarChange={(e) => setSearchText(e.target.value)} searchBarSearch={filterResults} />
             <div className={`flex justify-items-center grid grid-cols-1 mt-5 ${filteredSnips.length != 0 && "sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5"}`}>
                 {
                     filteredSnips.length != 0 
                     ? 
                     filteredSnips.map(snip => (
-                        <Snip key={snip.snipid} onClick={() => navigate(generatePath(PAGE_ROUTES.userpages.editsnip, {snipidparam: snip.snipid}))} snipid={snip.snipid} snipname={snip.snipname} sniplanguage={getLangText(snip.sniplanguage)} snipdescription={snip.snipdescription} lastmodified={snip.lastmodified} snipshared={snip.snipshared} className={snipClasses} />
+                        <Snip fromSharedWithMe={props.fromSharedWithMe} key={snip.snipid} onClick={
+                            () => {
+                                if (props.fromSharedWithMe)
+                                    navigate(generatePath(PAGE_ROUTES.userpages.shareddetails, {snipidparam: snip.snipid}))
+                                else
+                                    navigate(generatePath(PAGE_ROUTES.userpages.editsnip, {snipidparam: snip.snipid}))
+                            }
+                        } snipid={snip.snipid} snipname={snip.snipname} sniplanguage={getLangText(snip.sniplanguage)} snipdescription={snip.snipdescription} lastmodified={snip.lastmodified} snipshared={snip.snipshared} className={snipClasses} />
                     ))
                     :
                     (
@@ -72,6 +90,6 @@ export default function SnipsWrapper(){
                     )
                 }
             </div>
-        </div>
+        </>
     )
 }

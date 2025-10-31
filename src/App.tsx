@@ -45,8 +45,10 @@ function App() {
           >
             <Route index element={<Navigate to={ PAGE_ROUTES.userpages.snips } replace />} />
             <Route path={ PAGE_ROUTES.userpages.snips } element={ <SnipsWrapper /> } />
+            <Route path={ PAGE_ROUTES.userpages.sharedwithme } element={ <SnipsWrapper fromSharedWithMe={true} /> } />
             <Route path={ PAGE_ROUTES.userpages.createsnip } element={ <SnipDetailsWrapper /> } />
             <Route path={ PAGE_ROUTES.userpages.editsnip } element={ <SnipDetailsWrapper /> } />
+            <Route path={ PAGE_ROUTES.userpages.shareddetails } element={ <SnipDetailsWrapper fromSharedWithMe={true} /> } />
             <Route path={ PAGE_ROUTES.userpages.settings } element={ <SettingsWrapper /> } />
           </Route>
         </Routes>

@@ -80,6 +80,11 @@ export default class APIService {
         return await this.makeRequest(API_ENDPOINTS.editSnip, API_ACTIONS.patch, true, snip);
     }
 
+    //Get snips that are shared with the user
+    static async getSharedWithMe(): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.getSharedWithMe, API_ACTIONS.get, true);
+    }
+
     private static async makeRequest(endpoint: string, action: string, requiresAuth: boolean, payload?: object): Promise<APIResponse> {
         try {
             let csfrToken = undefined;

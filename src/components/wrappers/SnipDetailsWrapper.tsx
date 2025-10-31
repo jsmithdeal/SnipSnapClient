@@ -22,12 +22,17 @@ import React from "react";
 import { IoCopy } from "react-icons/io5";
 import { MdContentCut } from "react-icons/md";
 import { createToast } from "../../utilities/utilityFunctions";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import APIService from "../../services/api-service";
 import type { CollectionResponse, ContactsResponse, SnipDetailsResponse, SnipInitResponse } from "../../models/http/ResponseModels";
 import type { SaveSnipRequest } from "../../models/http/RequestModels";
 
-export default function SnipDetailsWrapper(){
+//Props indicate how to load snip details (varies based on my snips vs shared with me)
+type SnipDetailsProps = {
+    fromSharedWithMe?: boolean;
+}
+
+export default function SnipDetailsWrapper(props: SnipDetailsProps){
     const labelClassName = "text-indigo-800 brand-font";
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -39,9 +44,8 @@ export default function SnipDetailsWrapper(){
     const [contactOptions, setContactOptions] = useState<HTMLOptionElement[]>([]);
     const [sharedWith, setSharedWith] = useState<string[]>([]);
     const navigate = useNavigate();
+    const location = useLocation();
     const { snipidparam } = useParams();
-
-    //TODO: implement endpoints logic for creating new, saving existing, and deleting existing
     
     useEffect(() => {
         //Get the languages object from config variables and unpack them into the dropdown
@@ -94,7 +98,7 @@ export default function SnipDetailsWrapper(){
         }
         else 
             getSnipInit();
-    },[])
+    }, [location.pathname])
 
     //Copied this from react-codemirror npm page
     const onCodeChange = React.useCallback((val: React.SetStateAction<string>) => {
@@ -203,13 +207,28 @@ export default function SnipDetailsWrapper(){
             createToast(false, deleteResponse.message);
     }
 
+    //Get the header text based on the context in which the component is being viewed
+    function getHeader(){
+        if (snipidparam && props.fromSharedWithMe)
+            return "View Shared Snip";
+        else if (snipidparam)
+            return "Edit Snip";
+        else
+            return "Create New Snip";
+    }
+
     return (
         <>
-            <h1 className="brand-font text-3xl text-amber-600">{snipidparam ? "Edit Snip" : "Create a Snip"}</h1>
+            <h1 className="brand-font text-3xl text-amber-600">{ getHeader() }</h1>
             <form onSubmit={saveSnip} id="snipForm" className="mt-3 mb-4 w-full">
                 <Input onChange={(e) => setName(e.target.value)} label="Name" labelClassName={labelClassName} idAndName="snipname" type="text" className="w-full mb-4" required={true} value={name} />
                 <Textarea onChange={(e) => setDescription(e.target.value)} label="Description" labelClassName={labelClassName} idAndName="snipdescription" className="w-full mb-4" required={true} value={description} />
-                <Select onSelect={(e) => setCollection(e.target.value)} label="Collection" labelClassName={labelClassName} idAndName="collectionid" options={collectionOptions} value={collection} className="w-full mb-4" />
+                
+                {
+                    !props.fromSharedWithMe && 
+                    <Select onSelect={(e) => setCollection(e.target.value)} label="Collection" labelClassName={labelClassName} idAndName="collectionid" options={collectionOptions} value={collection} className="w-full mb-4" />
+                }
+
                 <Select onSelect={(e) => setLanguage(e.target.value)} label="Language" labelClassName={labelClassName} idAndName="sniplanguage" options={langOptions} value={language} className="w-full" />
             </form>
 
@@ -234,17 +253,23 @@ export default function SnipDetailsWrapper(){
                 </div>
             </div>
 
-            <Select onSelect={
-                (e) => setSharedWith(Array.from(e.target.selectedOptions, option => option.value))
-            } form="snipForm" label="Share With" labelClassName={labelClassName} idAndName="contacts" size={4} multiple={true} options={contactOptions} className="w-full" value={sharedWith} />
+            {
+                !props.fromSharedWithMe &&
+                <Select onSelect={
+                    (e) => setSharedWith(Array.from(e.target.selectedOptions, option => option.value))
+                } form="snipForm" label="Share With" labelClassName={labelClassName} idAndName="contacts" size={4} multiple={true} options={contactOptions} className="w-full" value={sharedWith} />
+            }
             <Input form="snipForm" type="hidden" idAndName="snipcontent" value={contentVal} />
 
-            <div className="mt-1">
-                <Input type='submit' value="Save Snip" form="snipForm" className="bg-indigo-800 hover:bg-indigo-600 mt-3 mr-3 text-white cursor-pointer rounded-md" />
-                {
-                    snipidparam && <Input type="button" value="Delete Snip" onClick={() => deleteSnip(snipidparam)} className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' />
-                }
-            </div>
+            {
+                !props.fromSharedWithMe &&
+                <div className="mt-1">
+                    <Input type='submit' value="Save Snip" form="snipForm" className="bg-indigo-800 hover:bg-indigo-600 mt-3 mr-3 text-white cursor-pointer rounded-md" />
+                    {
+                        snipidparam && <Input type="button" value="Delete Snip" onClick={() => deleteSnip(snipidparam)} className='mt-3 bg-red-800 hover:bg-red-700 text-white cursor-pointer rounded-md' />
+                    }
+                </div>
+            }
         </>
     )
 }

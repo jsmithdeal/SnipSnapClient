@@ -15,7 +15,8 @@ export const API_ENDPOINTS = {
     getSnipInit: "/getSnipInit",
     createSnip: "/createSnip",
     deleteSnip: "/deleteSnip/",
-    editSnip: "/editSnip"
+    editSnip: "/editSnip",
+    getSharedWithMe: "/getSharedWithMe"
 }
 export const API_ACTIONS = {
     post: "POST",
@@ -34,6 +35,8 @@ export const PAGE_ROUTES = {
         snips: "/userpages/snips",
         createsnip: "/userpages/createsnip",
         editsnip: "/userpages/editsnip/:snipidparam",
+        sharedwithme: "/userpages/sharedwithme",
+        shareddetails: "/userpages/shareddetails/:snipidparam",
         settings: "/userpages/settings"
     }
 }

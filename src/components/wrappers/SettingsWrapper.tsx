@@ -67,6 +67,7 @@ export default function SettingsWrapper(){
 
         if (saveResponse.success){
             setSaveInfoDisabled(true);
+            setUserInfoInit(emailText + fNameText + lNameText);
             createToast(true, "Information saved successfully");
         }
         else
