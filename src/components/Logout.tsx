@@ -20,7 +20,7 @@ export default function Logout(){
             navigate(PAGE_ROUTES.accesspages.login, {replace: true})
         }
         else
-            createToast(false, "There was a problem logging out.")
+            createToast(false, logoutResponse.message)
     }
 
     return (

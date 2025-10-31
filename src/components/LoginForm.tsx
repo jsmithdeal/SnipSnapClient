@@ -29,7 +29,7 @@ export default function LoginForm(){
 
         if (loginResponse.success){
             snipsnapContext?.setAuthenticated(true);
-            navigate("/userpages/snips", {replace: true});
+            navigate(PAGE_ROUTES.userpages.snips, {replace: true});
         }
         else 
             createToast(false, loginResponse.message);

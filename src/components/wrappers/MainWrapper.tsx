@@ -31,7 +31,7 @@ export default function MainWrapper(){
     }
 
     return (
-        <div className="grid w-screen h-screen grid-rows-[auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr]">
+        <div className="grid w-screen h-[100dvh] grid-rows-[auto_auto_1fr] lg:grid-rows-[auto_auto_auto_1fr]">
             <div className="bg-zinc-900 p-5 lg:flex lg:justify-center sticky top-0 left-0">
                 <div className="lg:container flex">
                     <div>
