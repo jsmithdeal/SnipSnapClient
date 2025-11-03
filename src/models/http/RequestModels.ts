@@ -1,7 +1,11 @@
-import type { SnipBase, UserBase } from './BaseModels';
+import type { CollectionBase, SnipBase, UserBase } from './BaseModels';
 
 export interface SaveUserRequest extends UserBase {
-    
+    lastmodified: Date;
+}
+
+export interface UpdateCollectionRequest extends CollectionBase {
+    lastmodified: Date;
 }
 
 export interface CreateUserRequest extends UserBase  {

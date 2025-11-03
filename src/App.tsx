@@ -11,6 +11,7 @@ import { PAGE_ROUTES } from './utilities/configVariables'
 import SnipsWrapper from './components/wrappers/SnipsWrapper'
 import SettingsWrapper from './components/wrappers/SettingsWrapper'
 import SnipDetailsWrapper from './components/wrappers/SnipDetailsWrapper'
+import CollectionsWrapper from './components/wrappers/CollectionsWrapper'
 
 function App() {
   return (
@@ -46,9 +47,11 @@ function App() {
             <Route index element={<Navigate to={ PAGE_ROUTES.userpages.snips } replace />} />
             <Route path={ PAGE_ROUTES.userpages.snips } element={ <SnipsWrapper /> } />
             <Route path={ PAGE_ROUTES.userpages.sharedwithme } element={ <SnipsWrapper fromSharedWithMe={true} /> } />
+            <Route path={ PAGE_ROUTES.userpages.collectionsnips } element={ <SnipsWrapper /> } />
             <Route path={ PAGE_ROUTES.userpages.createsnip } element={ <SnipDetailsWrapper /> } />
             <Route path={ PAGE_ROUTES.userpages.editsnip } element={ <SnipDetailsWrapper /> } />
             <Route path={ PAGE_ROUTES.userpages.shareddetails } element={ <SnipDetailsWrapper fromSharedWithMe={true} /> } />
+            <Route path={ PAGE_ROUTES.userpages.collections } element={ <CollectionsWrapper /> } />
             <Route path={ PAGE_ROUTES.userpages.settings } element={ <SettingsWrapper /> } />
           </Route>
         </Routes>
