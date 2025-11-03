@@ -26,6 +26,8 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import APIService from "../../services/api-service";
 import type { CollectionResponse, ContactsResponse, SnipDetailsResponse, SnipInitResponse } from "../../models/http/ResponseModels";
 import type { SaveSnipRequest } from "../../models/http/RequestModels";
+import CodeModal from "../CodeModal";
+import { HiArrowsExpand } from "react-icons/hi";
 
 //Props indicate how to load snip details (varies based on my snips vs shared with me)
 type SnipDetailsProps = {
@@ -43,6 +45,7 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
     const [contentVal, setContentVal] = useState("");
     const [contactOptions, setContactOptions] = useState<HTMLOptionElement[]>([]);
     const [sharedWith, setSharedWith] = useState<string[]>([]);
+    const [codeOpen, setCodeOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
     const { snipidparam } = useParams();
@@ -219,6 +222,11 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
 
     return (
         <>
+            {
+                codeOpen &&
+                <CodeModal onCloseClick={() => setCodeOpen(false)} value={contentVal} onCodeChange={onCodeChange} extensions={[getExtension()]} theme={getTheme()} />
+            }
+
             <h1 className="brand-font text-3xl text-amber-600">{ getHeader() }</h1>
             <form onSubmit={saveSnip} id="snipForm" className="mt-3 mb-4 w-full">
                 <Input onChange={(e) => setName(e.target.value)} label="Name" labelClassName={labelClassName} idAndName="snipname" type="text" className="w-full mb-4" required={true} value={name} />
@@ -242,14 +250,15 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
                             navigator.clipboard.writeText(contentVal);
                             createToast(true, "Copied!"); 
                         }
-                    } className="inline-block lg:block text-2xl text-indigo-800 cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105" title="Copy all content" />
+                    } className="inline-block lg:block text-3xl text-indigo-800 cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105" title="Copy all content" />
                     <MdContentCut onClick={
                         () => { 
                             navigator.clipboard.writeText(contentVal);
                             setContentVal("");
                             createToast(true, "Cut!"); 
                         }
-                    } className="inline-block lg:block ms-3 lg:mt-3 lg:ms-0 text-2xl text-amber-600 cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105" title="Cut all content" />
+                    } className="inline-block lg:block ms-3 lg:mt-3 lg:ms-0 text-3xl text-amber-600 cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105" title="Cut all content" />
+                    <HiArrowsExpand onClick={() => setCodeOpen(true)} className="inline-block lg:block ms-3 lg:mt-3 lg:ms-0 text-3xl text-zinc-900 cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105" title="Expand content view" />
                 </div>
             </div>
 
