@@ -16,7 +16,12 @@ export const API_ENDPOINTS = {
     createSnip: "/createSnip",
     deleteSnip: "/deleteSnip/",
     editSnip: "/editSnip",
-    getSharedWithMe: "/getSharedWithMe"
+    getSharedWithMe: "/getSharedWithMe",
+    createCollection: "/createCollection/",
+    getCollections: "/getCollections",
+    editCollection: "/editCollectionName",
+    deleteCollection: "/deleteCollection/",
+    getCollectionSnips: "/getCollectionSnips/"
 }
 export const API_ACTIONS = {
     post: "POST",
@@ -37,7 +42,9 @@ export const PAGE_ROUTES = {
         editsnip: "/userpages/editsnip/:snipidparam",
         sharedwithme: "/userpages/sharedwithme",
         shareddetails: "/userpages/shareddetails/:snipidparam",
-        settings: "/userpages/settings"
+        settings: "/userpages/settings",
+        collections: "/userpages/collections",
+        collectionsnips: "/userpages/collectionsnips/:collnameparam/:collidparam"
     }
 }
 export const SNIP_LANGUAGES = {

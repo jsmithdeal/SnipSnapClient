@@ -61,7 +61,8 @@ export default function SettingsWrapper(){
         const saveRequest: SaveUserRequest = {
             email: emailText,
             firstname: fNameText,
-            lastname: lNameText
+            lastname: lNameText,
+            lastmodified: new Date()
         }
         const saveResponse = await APIService.saveUserInfo(saveRequest);
 

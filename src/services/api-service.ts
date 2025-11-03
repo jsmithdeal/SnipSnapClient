@@ -1,6 +1,6 @@
 import axios, { AxiosError, isAxiosError } from "axios";
 import { API_URL, API_ENDPOINTS, API_ACTIONS } from "../utilities/configVariables";
-import type { CreateContactRequest, CreateUserRequest, LoginRequest, SaveSnipRequest, SaveUserRequest } from "../models/http/RequestModels";
+import type { CreateContactRequest, CreateUserRequest, LoginRequest, SaveSnipRequest, SaveUserRequest, UpdateCollectionRequest } from "../models/http/RequestModels";
 import type APIResponse from "../models/http/APIResponse";
 import Cookies from "js-cookie"
 
@@ -83,6 +83,31 @@ export default class APIService {
     //Get snips that are shared with the user
     static async getSharedWithMe(): Promise<APIResponse> {
         return await this.makeRequest(API_ENDPOINTS.getSharedWithMe, API_ACTIONS.get, true);
+    }
+
+    //Create new collection
+    static async createCollection(collectionName: string): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.createCollection + collectionName, API_ACTIONS.post, true);
+    }
+
+    //Get list of user collections
+    static async getCollections(): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.getCollections, API_ACTIONS.get, true);
+    }
+
+    //Edit collection
+    static async editCollection(updateReq: UpdateCollectionRequest): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.editCollection, API_ACTIONS.patch, true, updateReq);
+    }
+
+    //Delete collection
+    static async deleteCollection(collId: number): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.deleteCollection + collId, API_ACTIONS.delete, true);
+    }
+
+    //Get collection snips
+    static async getCollectionSnips(collId: number): Promise<APIResponse> {
+        return await this.makeRequest(API_ENDPOINTS.getCollectionSnips + collId, API_ACTIONS.get, true);
     }
 
     private static async makeRequest(endpoint: string, action: string, requiresAuth: boolean, payload?: object): Promise<APIResponse> {

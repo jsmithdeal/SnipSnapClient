@@ -240,14 +240,14 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
                     <IoCopy onClick={
                         () => { 
                             navigator.clipboard.writeText(contentVal);
-                            createToast(true, "Copied!", 1000); 
+                            createToast(true, "Copied!"); 
                         }
                     } className="inline-block lg:block text-2xl text-indigo-800 cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105" title="Copy all content" />
                     <MdContentCut onClick={
                         () => { 
                             navigator.clipboard.writeText(contentVal);
                             setContentVal("");
-                            createToast(true, "Cut!", 1000); 
+                            createToast(true, "Cut!"); 
                         }
                     } className="inline-block lg:block ms-3 lg:mt-3 lg:ms-0 text-2xl text-amber-600 cursor-pointer duration-300 hover:-translate-y-1 hover:scale-105" title="Cut all content" />
                 </div>
