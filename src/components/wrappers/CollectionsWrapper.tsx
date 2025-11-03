@@ -12,6 +12,7 @@ import type { UpdateCollectionRequest } from "../../models/http/RequestModels";
 
 //Component providing list of all collections associated with a user
 export default function CollectionsWrapper(){
+    let pressTimer: number;
     const [modalOpen, setModalOpen] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
     const [editCollId, setEditCollId] = useState(0);
@@ -152,6 +153,15 @@ export default function CollectionsWrapper(){
         }
     }
 
+    //Display edit modal for both desktop right click and mobile long touch
+    function handleTouchContext(e: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>, collectionid: number, collectionname: string){
+        e.preventDefault();
+        setModalEdit(true);
+        setModalOpen(true);
+        setEditCollId(collectionid);
+        setEditCollName(collectionname);
+    }
+
     return (
         <>
             {
@@ -183,13 +193,17 @@ export default function CollectionsWrapper(){
                     filteredColls.length != 0 
                     ? 
                     filteredColls.map(c => (
-                        <Collection key={c.collectionid} onClick={() => navigate(generatePath(PAGE_ROUTES.userpages.collectionsnips, {collnameparam: c.collectionname, collidparam: c.collectionid}))} onContextMenu={(e) => {
-                            e.preventDefault();
-                            setModalEdit(true);
-                            setModalOpen(true);
-                            setEditCollId(c.collectionid);
-                            setEditCollName(c.collectionname);
-                        }} className="w-full flex flex-col items-center duration-300 hover:-translate-y-1 hover:scale-105 cursor-pointer" collectionname={c.collectionname} />
+                        <Collection key={c.collectionid} onClick={() => navigate(generatePath(PAGE_ROUTES.userpages.collectionsnips, {collnameparam: c.collectionname, collidparam: c.collectionid}))} onContextMenu={(e) => handleTouchContext(e, c.collectionid, c.collectionname)} 
+                            onTouchStart={(e) => {
+                                e.preventDefault();
+
+                                pressTimer = window.setTimeout(function(){
+                                    handleTouchContext(e, c.collectionid, c.collectionname)
+                                }, 750)
+                            }}  
+                            onTouchEnd={() => {
+                                window.clearTimeout(pressTimer);
+                            }} className="w-full flex flex-col items-center duration-300 hover:-translate-y-1 hover:scale-105 cursor-pointer" collectionname={c.collectionname} />
                     ))
                     :
                     (
