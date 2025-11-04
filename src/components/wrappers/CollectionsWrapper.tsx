@@ -34,7 +34,7 @@ export default function CollectionsWrapper(){
                 setFilteredColls(collections);
             }
             else
-                createToast(false, collectionsResponse.message);
+                createToast(false, "Get collections failed");
         }
 
         getCollections();
@@ -92,7 +92,7 @@ export default function CollectionsWrapper(){
                 createToast(true, "Collection created");
             }
             else
-                createToast(false, createCollResponse.message);
+                createToast(false, "Create colelction failed");
         }
     }
 
@@ -127,7 +127,7 @@ export default function CollectionsWrapper(){
                 createToast(true, "Collection updated");
             }
             else
-                createToast(false, editCollResponse.message);
+                createToast(false, "Edit collection failed");
         }
     }
 
@@ -149,7 +149,7 @@ export default function CollectionsWrapper(){
                 createToast(true, "Collection deleted");
             }
             else
-                createToast(false, deleteResponse.message);
+                createToast(false, "Delete collection failed");
         }
     }
 

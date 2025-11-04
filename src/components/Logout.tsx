@@ -20,7 +20,7 @@ export default function Logout(){
             navigate(PAGE_ROUTES.accesspages.login, {replace: true})
         }
         else
-            createToast(false, logoutResponse.message)
+            createToast(false, "Logout failed");
     }
 
     return (
