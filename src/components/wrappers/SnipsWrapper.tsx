@@ -39,7 +39,7 @@ export default function SnipsWrapper(props: SnipsWrapperProps){
                 setFilteredSnips(snipsResponse.data as SnipsResponse[]);
             }
             else
-                createToast(false, snipsResponse.message);
+                createToast(false, "Get snips failed");
         }
 
         getSnips();

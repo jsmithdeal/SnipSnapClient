@@ -24,7 +24,7 @@ export default function CreateAccount(){
             createToast(false, "Passwords don't match");
         }
         else if (!meetsPwdReqs()){
-            createToast(false, "Password must meet the following requirements: minimum 8 characters, 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character");
+            createToast(false, "Password must meet the following requirements: minimum 8 characters, 1 lowercase letter, 1 uppercase letter, 1 number, 1 special character", 5000);
         }
         else {
             //Build create user request from state
@@ -40,14 +40,14 @@ export default function CreateAccount(){
             if (createResponse.statusCode == 200){
                 //Call toast directly here for callback
                 toast.success("User created. Redirecting to login...", {
-                    autoClose: 5000,
+                    autoClose: 2500,
                     theme: "dark",
                     onClose: () => navigate(PAGE_ROUTES.accesspages.login, {replace: true}),
                     transition: Bounce,
                 });
             }
             else 
-                createToast(false, createResponse.message);
+                createToast(false, "Create user failed");
         }
     }
 

@@ -73,7 +73,7 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
                 setSharedWith(Array.from(snipDetails.sharedwith, contactid => contactid.toString()));
             }
             else {
-                createToast(false, snipDetailsResponse.message);
+                createToast(false, "Get details failed");
                 navigate(-1);
             }
         }
@@ -88,7 +88,7 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
                 setLanguage("plaintext");
             }
             else {
-                createToast(false, snipInitResponse.message);
+                createToast(false, "Initialize new snip failed");
                 navigate(-1);
             }
         }
@@ -195,7 +195,7 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
                 navigate(-1);
         }
         else
-            createToast(false, saveSnipReponse.message);
+            createToast(false, "Save snip failed");
     }
 
     //Delete the snip
@@ -207,7 +207,7 @@ export default function SnipDetailsWrapper(props: SnipDetailsProps){
             navigate(-1);
         }
         else
-            createToast(false, deleteResponse.message);
+            createToast(false, "Delete snip failed");
     }
 
     //Get the header text based on the context in which the component is being viewed

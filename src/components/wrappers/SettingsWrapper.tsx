@@ -48,7 +48,7 @@ export default function SettingsWrapper(){
                 setContactOptions(contacts);
             }
             else
-                createToast(false, settingsResponse.message);
+                createToast(false, "Get settings failed");
         }
 
         getSettings();
@@ -72,7 +72,7 @@ export default function SettingsWrapper(){
             createToast(true, "Information saved successfully");
         }
         else
-            createToast(false, saveResponse.message);
+            createToast(false, "Save user information failed");
     }
 
     //Delete the account
@@ -85,7 +85,7 @@ export default function SettingsWrapper(){
                 navigate(PAGE_ROUTES.accesspages.login, {replace: true})
             }
             else
-                createToast(false, deleteResponse.message);
+                createToast(false, "Delete account failed");
         }
     }
 
@@ -102,7 +102,7 @@ export default function SettingsWrapper(){
                 createToast(true, "Contact deleted");
             }
             else
-                createToast(false, deleteResponse.message);
+                createToast(false, "Delete contact failed");
         }
     }
 
@@ -129,7 +129,7 @@ export default function SettingsWrapper(){
             createToast(true, "Contact created");
         }
         else
-            createToast(false, contactResponse.message)
+            createToast(false, "Create contact failed")
     }
 
     //Verifies that at least one of the user information fields has changed before enabling save button

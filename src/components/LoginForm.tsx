@@ -32,7 +32,7 @@ export default function LoginForm(){
             navigate(PAGE_ROUTES.userpages.snips, {replace: true});
         }
         else 
-            createToast(false, loginResponse.message);
+            createToast(false, "Login failed");
     }
 
     return (
