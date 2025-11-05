@@ -14,6 +14,7 @@ type SnipsWrapperProps = {
 }
 
 export default function SnipsWrapper(props: SnipsWrapperProps){
+    const [loading, setLoading] = useState(true);
     const [allSnips, setAllSnips] = useState<SnipsResponse[]>([]);
     const [filteredSnips, setFilteredSnips] = useState<SnipsResponse[]>([]);
     const [searchText, setSearchText] = useState("");
@@ -40,6 +41,8 @@ export default function SnipsWrapper(props: SnipsWrapperProps){
             }
             else
                 createToast(false, "Get snips failed");
+
+            setLoading(false);
         }
 
         getSnips();
@@ -98,6 +101,7 @@ export default function SnipsWrapper(props: SnipsWrapperProps){
                     ))
                     :
                     (
+                        !loading &&
                         <>
                             <CiFaceFrown  className="text-6xl text-zinc-400" />
                             <span className="brand-font text-xl text-zinc-400">Nothing to see here...</span>

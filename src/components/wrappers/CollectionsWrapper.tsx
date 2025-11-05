@@ -13,6 +13,7 @@ import type { UpdateCollectionRequest } from "../../models/http/RequestModels";
 //Component providing list of all collections associated with a user
 export default function CollectionsWrapper(){
     let pressTimer: number;
+    const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalEdit, setModalEdit] = useState(false);
     const [editCollId, setEditCollId] = useState(0);
@@ -35,6 +36,8 @@ export default function CollectionsWrapper(){
             }
             else
                 createToast(false, "Get collections failed");
+
+            setLoading(false);
         }
 
         getCollections();
@@ -207,6 +210,7 @@ export default function CollectionsWrapper(){
                     ))
                     :
                     (
+                        !loading &&
                         <>
                             <CiFaceFrown  className="text-6xl text-zinc-400" />
                             <span className="brand-font text-xl text-zinc-400">Nothing to see here...</span>
