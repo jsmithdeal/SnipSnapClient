@@ -11,7 +11,7 @@ export default function Logout(){
     const context = useContext(SnipSnapContext);
 
     //On logout call api logout and set context authenticated false. Api takes
-    //care of expiring jwt and csfr cookies
+    //care of expiring jwt and csrf cookies
     async function logoutClick(){
         const logoutResponse = await APIService.logout();
 

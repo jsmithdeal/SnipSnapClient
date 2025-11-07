@@ -24,7 +24,7 @@ export default function LoginForm(){
             password: passwordText
         }
 
-        //Call login api which will store jwt and csfr tokens in cookies (React state not persistent)
+        //Call login api which will store jwt and csrf tokens in cookies (React state not persistent)
         const loginResponse = await APIService.login(login);
 
         if (loginResponse.success){
