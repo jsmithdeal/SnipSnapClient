@@ -1,5 +1,5 @@
 export const APP_NAME = "SnipSnap";
-export const API_URL = "https://api.piofthesky.org"
+export const API_URL = "https://api.snip-snap.org"
 export const API_ENDPOINTS = {
     createUser: "/createUser",
     login: "/login",
