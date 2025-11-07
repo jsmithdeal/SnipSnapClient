@@ -112,7 +112,7 @@ export default class APIService {
 
     private static async makeRequest(endpoint: string, action: string, requiresAuth: boolean, payload?: object): Promise<APIResponse> {
         try {
-            let csfrToken = undefined;
+            let csrfToken = undefined;
             let response = undefined;
             let config = {
                 "withCredentials": true,
@@ -121,13 +121,13 @@ export default class APIService {
             endpoint = API_URL + endpoint;
 
             if (requiresAuth){
-                csfrToken = Cookies.get("snipsnap_csfr");
+                csrfToken = Cookies.get("snipsnap_csrf");
 
-                if (csfrToken == null || csfrToken == "")
+                if (csrfToken == null || csrfToken == "")
                     throw new AxiosError("Unauthorized", "401");
 
                 config.headers = {
-                    "snipsnap_csfr": csfrToken
+                    "snipsnap_csrf": csrfToken
                 }
             }
 
@@ -141,9 +141,9 @@ export default class APIService {
                 response = await axios.get(endpoint, config);
 
             if (endpoint == API_ENDPOINTS.login){
-                csfrToken = Cookies.get("snipsnap_csfr")
+                csrfToken = Cookies.get("snipsnap_csrf")
 
-                if (csfrToken == undefined || csfrToken == null || csfrToken == "")
+                if (csrfToken == undefined || csrfToken == null || csrfToken == "")
                     throw new AxiosError("Unauthorized", "401");
             }
             
